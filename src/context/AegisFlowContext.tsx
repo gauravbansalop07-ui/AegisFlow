@@ -139,6 +139,11 @@ interface AegisFlowContextType {
   skipDemo: () => void;
   setDemoStep: (step: number) => void;
 
+  // Mobile Navigation Drawer State
+  isMobileNavOpen: boolean;
+  setIsMobileNavOpen: (open: boolean) => void;
+  toggleMobileNav: () => void;
+
   toasts: ToastNotification[];
   showToast: (toast: Omit<ToastNotification, "id">) => void;
   dismissToast: (id: string) => void;
@@ -166,6 +171,9 @@ export function AegisFlowProvider({ children }: { children: React.ReactNode }) {
   // Phase 11 Demo State
   const [isDemoMode, setIsDemoMode] = useState<boolean>(false);
   const [demoStep, setDemoStep] = useState<number>(1);
+
+  // Mobile Navigation State
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState<boolean>(false);
 
   const [baseDistricts] = useState<District[]>(ASSAM_DISTRICTS);
   const [baseGauges] = useState<HazardGauge[]>(RIVER_GAUGES);
@@ -788,6 +796,7 @@ export function AegisFlowProvider({ children }: { children: React.ReactNode }) {
     resetToBaseline();
     setIsDemoMode(true);
     setDemoStep(1);
+    setIsMobileNavOpen(false);
     showToast({
       title: "Guided Tour Initialized",
       message: "Starting 5-minute end-to-end operational decision flow.",
@@ -813,6 +822,10 @@ export function AegisFlowProvider({ children }: { children: React.ReactNode }) {
       message: "Current application state preserved for free exploration.",
       type: "info",
     });
+  };
+
+  const toggleMobileNav = () => {
+    setIsMobileNavOpen((prev) => !prev);
   };
 
   const value = useMemo(
@@ -876,6 +889,9 @@ export function AegisFlowProvider({ children }: { children: React.ReactNode }) {
       exitDemo,
       skipDemo,
       setDemoStep,
+      isMobileNavOpen,
+      setIsMobileNavOpen,
+      toggleMobileNav,
       toasts,
       showToast,
       dismissToast,
@@ -911,6 +927,7 @@ export function AegisFlowProvider({ children }: { children: React.ReactNode }) {
       reportHistory,
       isDemoMode,
       demoStep,
+      isMobileNavOpen,
       toasts,
     ]
   );

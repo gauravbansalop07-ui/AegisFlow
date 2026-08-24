@@ -10,7 +10,7 @@ import {
   Zap,
   Play,
   Sparkles,
-  HelpCircle,
+  Menu,
 } from "lucide-react";
 import { useAegisFlow } from "@/context/AegisFlowContext";
 import { Badge } from "@/components/ui/Badge";
@@ -28,29 +28,37 @@ export function TopBar() {
     isDemoMode,
     startDemo,
     exitDemo,
+    toggleMobileNav,
   } = useAegisFlow();
 
   const activeAlerts = alerts.filter((a) => a.status === "active");
 
   return (
-    <header className="h-16 bg-surface/90 backdrop-blur border-b border-border px-6 flex items-center justify-between shrink-0 sticky top-0 z-20 transition-all">
-      {/* Left: Region & Active Basin Context */}
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-md bg-ops-cyan/10 border border-ops-cyan/30 flex items-center justify-center text-ops-cyan">
+    <header className="h-14 sm:h-16 bg-surface/90 backdrop-blur border-b border-border px-3 sm:px-6 flex items-center justify-between shrink-0 sticky top-0 z-20 transition-all">
+      {/* Left: Hamburger (Mobile only) + Region & Active Basin Context */}
+      <div className="flex items-center gap-2 sm:gap-4">
+        {/* Mobile Hamburger Button */}
+        <button
+          onClick={toggleMobileNav}
+          className="lg:hidden p-1.5 rounded-md hover:bg-surface-elevated text-text-secondary hover:text-text-primary transition-colors"
+          aria-label="Open menu"
+        >
+          <Menu className="w-5 h-5 text-ops-cyan" />
+        </button>
+
+        {/* Basin Context Selector */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="hidden xs:flex w-7 h-7 rounded-md bg-ops-cyan/10 border border-ops-cyan/30 items-center justify-center text-ops-cyan">
             <MapPin className="w-3.5 h-3.5" />
           </div>
-          <span className="text-xs font-mono text-text-secondary uppercase tracking-wider hidden sm:inline">
-            Basin:
-          </span>
           <select
             value={selectedDistrictId || "all"}
             onChange={(e) =>
               setSelectedDistrictId(e.target.value === "all" ? null : e.target.value)
             }
-            className="bg-surface-elevated text-xs font-mono text-text-primary px-3 py-1.5 rounded-md border border-border-strong focus:outline-none focus:ring-1 focus:ring-ops-cyan cursor-pointer hover:border-ops-cyan/50 transition-colors"
+            className="bg-surface-elevated text-[11px] sm:text-xs font-mono text-text-primary px-2 sm:px-3 py-1 sm:py-1.5 rounded-md border border-border-strong focus:outline-none focus:ring-1 focus:ring-ops-cyan cursor-pointer hover:border-ops-cyan/50 transition-colors max-w-[150px] xs:max-w-[200px] sm:max-w-none truncate"
           >
-            <option value="all">Assam (Statewide - 34 Districts)</option>
+            <option value="all">Assam (Statewide)</option>
             {districts.map((d) => (
               <option key={d.id} value={d.id}>
                 {d.name} ({d.code})
@@ -59,13 +67,13 @@ export function TopBar() {
           </select>
         </div>
 
-        {/* Global Live Simulation Indicator */}
+        {/* Global Live Simulation Indicator - Hidden on extra small screens */}
         <Tooltip content="Deterministic Hydro-GIS model running in real-time decision simulation mode.">
-          <div>
+          <div className="hidden md:block">
             <Badge variant="warning" dot={true} className="cursor-help shadow-sm">
               <span className="flex items-center gap-1.5 font-mono text-[11px]">
                 <Zap className="w-3 h-3 text-ops-amber" />
-                SIMULATION MODE
+                SIMULATION
               </span>
             </Badge>
           </div>
@@ -73,51 +81,48 @@ export function TopBar() {
       </div>
 
       {/* Right: Guided Demo CTA, Search, Clock, Unread Alerts & Commander Profile */}
-      <div className="flex items-center gap-3.5">
+      <div className="flex items-center gap-2 sm:gap-3.5">
         {/* Guided Demo Button */}
         {isDemoMode ? (
           <Button
             variant="outline"
             size="sm"
             onClick={exitDemo}
-            className="border-ops-cyan text-ops-cyan font-mono text-xs gap-1.5 bg-ops-cyan/10 hover:bg-ops-cyan/20 animate-pulse rounded-md"
+            className="border-ops-cyan text-ops-cyan font-mono text-[10px] sm:text-xs gap-1 sm:gap-1.5 bg-ops-cyan/10 hover:bg-ops-cyan/20 animate-pulse rounded-md py-1 px-2 sm:px-3 h-7 sm:h-8"
           >
             <span className="w-2 h-2 rounded-full bg-ops-cyan" />
-            <span>DEMO ACTIVE (RESET)</span>
+            <span className="hidden xs:inline">DEMO ACTIVE</span>
+            <span className="xs:hidden">RESET</span>
           </Button>
         ) : (
-          <Tooltip content="Launch an interactive 5-minute guided presentation for judges and commanders.">
-            <div>
-              <Button
-                variant="primary"
-                size="sm"
-                onClick={startDemo}
-                className="font-mono text-xs gap-2 font-bold shadow-glow-cyan rounded-md py-1.5 px-3 hover:scale-[1.02] transition-transform"
-              >
-                <Play className="w-3.5 h-3.5 fill-current" />
-                <span>START 5-MIN DEMO</span>
-              </Button>
-            </div>
-          </Tooltip>
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={startDemo}
+            className="font-mono text-[10px] sm:text-xs gap-1 sm:gap-2 font-bold shadow-glow-cyan rounded-md py-1 px-2 sm:px-3 h-7 sm:h-8 hover:scale-[1.02] transition-transform"
+          >
+            <Play className="w-3 h-3 fill-current" />
+            <span className="hidden xs:inline">5-MIN DEMO</span>
+            <span className="xs:hidden">DEMO</span>
+          </Button>
         )}
 
-        {/* Search */}
+        {/* Search - Desktop only */}
         <div className="relative hidden xl:block">
           <Search className="w-3.5 h-3.5 text-text-muted absolute left-2.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Search district, gauge..."
-            className="w-44 bg-surface-elevated text-xs font-mono text-text-primary pl-8 pr-3 py-1.5 rounded-md border border-border focus:border-ops-cyan/50 focus:outline-none placeholder:text-text-dim"
+            className="w-40 bg-surface-elevated text-xs font-mono text-text-primary pl-8 pr-3 py-1.5 rounded-md border border-border focus:border-ops-cyan/50 focus:outline-none placeholder:text-text-dim"
           />
         </div>
 
-        {/* Last Data Sync Clock */}
+        {/* Last Data Sync Clock - Hidden on very small screens */}
         <Tooltip content="Telemetry synchronization frequency: < 15 seconds.">
           <div className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-text-secondary bg-surface-elevated/60 px-2 py-1 rounded-md border border-border/60 cursor-default">
             <Clock className="w-3 h-3 text-ops-cyan" />
-            <span className="text-[11px]">Sync:</span>
-            <span className="text-ops-cyan font-bold text-[11px]">
-              {simulationState.lastUpdatedTimestamp}
+            <span className="text-[11px] font-bold text-ops-cyan">
+              {simulationState.lastUpdatedTimestamp.split(" ")[0]}
             </span>
           </div>
         </Tooltip>
@@ -126,7 +131,7 @@ export function TopBar() {
         <Tooltip content={`${activeAlerts.length} active official emergency bulletins.`}>
           <Link
             href="/alerts"
-            className="relative p-2 rounded-md hover:bg-surface-elevated text-text-secondary hover:text-text-primary transition-colors border border-transparent hover:border-border"
+            className="relative p-1.5 sm:p-2 rounded-md hover:bg-surface-elevated text-text-secondary hover:text-text-primary transition-colors border border-transparent hover:border-border"
             title="Active Alerts"
           >
             <Bell className="w-4 h-4" />
@@ -137,11 +142,11 @@ export function TopBar() {
         </Tooltip>
 
         {/* Commander Profile */}
-        <div className="flex items-center gap-2.5 pl-3 border-l border-border">
-          <div className="w-8 h-8 rounded-full bg-ops-cyan/15 border border-ops-cyan/40 flex items-center justify-center text-ops-cyan font-bold text-xs font-mono shadow-sm">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 pl-1.5 sm:pl-3 border-l border-border">
+          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-ops-cyan/15 border border-ops-cyan/40 flex items-center justify-center text-ops-cyan font-bold text-[10px] sm:text-xs font-mono shadow-sm">
             GB
           </div>
-          <div className="text-left hidden sm:block">
+          <div className="text-left hidden lg:block">
             <div className="text-xs font-mono font-bold text-text-primary">
               Gaurav Bansal
             </div>

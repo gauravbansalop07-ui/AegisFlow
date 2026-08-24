@@ -18,7 +18,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useAegisFlow } from "@/context/AegisFlowContext";
 
-const NAV_ITEMS = [
+export const NAV_ITEMS = [
   {
     label: "Overview",
     href: "/",
@@ -75,7 +75,7 @@ export function Sidebar() {
   const activeAlertsCount = alerts.filter((a) => a.status === "active").length;
 
   return (
-    <aside className="w-64 bg-surface border-r border-border flex flex-col justify-between shrink-0 h-screen sticky top-0 z-30 select-none">
+    <aside className="hidden lg:flex w-64 bg-surface border-r border-border flex-col justify-between shrink-0 h-screen sticky top-0 z-30 select-none">
       <div>
         {/* Brand Header */}
         <div className="h-16 flex items-center px-4 border-b border-border gap-3">

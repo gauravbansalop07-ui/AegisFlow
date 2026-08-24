@@ -239,7 +239,7 @@ export function GuidedDemoWalkthrough() {
   const isBusy = isExecutingAction || isSimulating || isOptimizing;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 max-w-lg w-full font-mono text-xs animate-in fade-in slide-in-from-bottom-4 duration-200">
+    <div className="fixed bottom-16 sm:bottom-6 left-2 right-2 sm:left-auto sm:right-6 z-50 sm:max-w-lg font-mono text-xs animate-in fade-in slide-in-from-bottom-4 duration-200">
       <div className="bg-surface/95 backdrop-blur-md border-2 border-ops-cyan rounded-lg shadow-2xl overflow-hidden shadow-ops-cyan/15">
         {/* Top Progress Bar */}
         <div className="h-1.5 w-full bg-surface-elevated">
@@ -250,16 +250,16 @@ export function GuidedDemoWalkthrough() {
         </div>
 
         {/* Header Bar */}
-        <div className="px-4 py-2.5 bg-surface-elevated flex items-center justify-between border-b border-border">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-ops-cyan animate-ping" />
-            <Badge variant="info" size="sm" className="font-bold">
+        <div className="px-3 sm:px-4 py-2 bg-surface-elevated flex items-center justify-between border-b border-border">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="w-2 h-2 rounded-full bg-ops-cyan animate-ping shrink-0" />
+            <Badge variant="info" size="sm" className="font-bold text-[10px] sm:text-xs">
               {currentConfig.badge}
             </Badge>
           </div>
 
           <div className="flex items-center gap-1.5">
-            <span className="text-[9px] text-text-muted hidden sm:inline">
+            <span className="text-[9px] text-text-muted hidden md:inline">
               [← / → Keys]
             </span>
             <button
@@ -279,24 +279,24 @@ export function GuidedDemoWalkthrough() {
         </div>
 
         {/* Body Content */}
-        <div className="p-4 space-y-3 bg-surface">
+        <div className="p-3 sm:p-4 space-y-2.5 sm:space-y-3 bg-surface max-h-[60vh] sm:max-h-none overflow-y-auto">
           <div>
-            <h3 className="text-sm font-bold text-text-primary flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4 text-ops-cyan" />
-              <span>{currentConfig.title}</span>
+            <h3 className="text-xs sm:text-sm font-bold text-text-primary flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-ops-cyan shrink-0" />
+              <span className="truncate">{currentConfig.title}</span>
             </h3>
-            <p className="text-[11.5px] text-text-secondary leading-relaxed mt-1">
+            <p className="text-[11px] sm:text-[11.5px] text-text-secondary leading-relaxed mt-1 line-clamp-3 sm:line-clamp-none">
               {currentConfig.narration}
             </p>
           </div>
 
           {/* Highlight Callout */}
-          <div className="p-2.5 rounded bg-ops-cyan/10 border border-ops-cyan/30 text-[11px] text-text-primary space-y-1">
-            <div className="flex items-center gap-1.5 font-bold text-ops-cyan text-[10px] uppercase">
-              <Info className="w-3.5 h-3.5" />
-              <span>Live Demonstration Action:</span>
+          <div className="p-2 sm:p-2.5 rounded bg-ops-cyan/10 border border-ops-cyan/30 text-[10.5px] sm:text-[11px] text-text-primary space-y-0.5 sm:space-y-1">
+            <div className="flex items-center gap-1.5 font-bold text-ops-cyan text-[9.5px] sm:text-[10px] uppercase">
+              <Info className="w-3 h-3 shrink-0" />
+              <span>Action:</span>
             </div>
-            <div className="text-text-primary text-[10.5px] leading-snug">
+            <div className="text-text-primary text-[10px] sm:text-[10.5px] leading-snug">
               {currentConfig.highlightNote}
             </div>
           </div>
@@ -321,10 +321,10 @@ export function GuidedDemoWalkthrough() {
           <div className="pt-2 border-t border-border flex items-center justify-between">
             <button
               onClick={exitDemo}
-              className="text-[10px] text-text-muted hover:text-ops-crimson flex items-center gap-1 transition-colors"
+              className="text-[9.5px] sm:text-[10px] text-text-muted hover:text-ops-crimson flex items-center gap-1 transition-colors"
             >
               <RotateCcw className="w-3 h-3" />
-              <span>Exit & Reset</span>
+              <span>Reset</span>
             </button>
 
             <div className="flex items-center gap-2">
@@ -347,10 +347,10 @@ export function GuidedDemoWalkthrough() {
                 className="gap-1.5 text-xs py-1 px-3 h-7 font-bold shadow-glow-cyan"
               >
                 {isBusy ? (
-                  <span>Syncing State...</span>
+                  <span>Syncing...</span>
                 ) : isLastStep ? (
                   <>
-                    <span>Finish Demo</span>
+                    <span>Finish</span>
                     <CheckCircle2 className="w-3 h-3" />
                   </>
                 ) : (

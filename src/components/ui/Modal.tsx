@@ -29,6 +29,18 @@ export function Modal({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const widthStyles = {
@@ -40,34 +52,35 @@ export function Modal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 overflow-y-auto">
       <div
         className="fixed inset-0 bg-background/80 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
       <div
         className={cn(
-          "relative z-50 w-full rounded border border-border-strong bg-surface p-6 shadow-ops-lg",
+          "relative z-50 w-full max-h-[90vh] overflow-y-auto rounded-lg border border-border-strong bg-surface p-4 sm:p-6 shadow-ops-lg my-auto",
           widthStyles[maxWidth]
         )}
       >
-        <div className="flex items-center justify-between pb-4 border-b border-border">
+        <div className="flex items-start justify-between pb-3 sm:pb-4 border-b border-border gap-2">
           <div>
-            <h2 className="text-base font-semibold text-text-primary font-mono uppercase tracking-wider">
+            <h2 className="text-sm sm:text-base font-semibold text-text-primary font-mono uppercase tracking-wider">
               {title}
             </h2>
             {description && (
-              <p className="text-xs text-text-secondary mt-1">{description}</p>
+              <p className="text-[11px] sm:text-xs text-text-secondary mt-1">{description}</p>
             )}
           </div>
           <button
             onClick={onClose}
-            className="text-text-muted hover:text-text-primary transition-colors p-1 rounded hover:bg-surface-elevated"
+            className="text-text-muted hover:text-text-primary transition-colors p-1.5 rounded hover:bg-surface-elevated shrink-0"
+            aria-label="Close dialog"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
-        <div className="mt-4">{children}</div>
+        <div className="mt-3 sm:mt-4">{children}</div>
       </div>
     </div>
   );
