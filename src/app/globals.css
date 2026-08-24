@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "leaflet/dist/leaflet.css";
+
+:root {
+  --background: #0B1120;
+  --surface: #0F172A;
+  --surface-elevated: #1E293B;
+  --border: #1E293B;
+  --border-strong: #334155;
+  --cyan: #06B6D4;
+}
+
+body {
+  background-color: var(--background);
+  color: #F8FAFC;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar for Operations Center look */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B1120;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Leaflet Container Customization for Dark Mode */
+.leaflet-container {
+  background-color: #0B1120 !important;
+  font-family: inherit;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.leaflet-control-zoom {
+  border: 1px solid #334155 !important;
+  background: #0F172A !important;
+  border-radius: 4px !important;
+  overflow: hidden;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  background: #0F172A !important;
+  color: #94A3B8 !important;
+  border-bottom: 1px solid #1E293B !important;
+}
+
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+  background: #1E293B !important;
+  color: #06B6D4 !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(15, 23, 42, 0.8) !important;
+  color: #64748B !important;
+  font-size: 10px !important;
+}
+
+.leaflet-control-attribution a {
+  color: #06B6D4 !important;
+}
+
+/* Tactical Pulse Animation */
+@keyframes ops-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.animate-ops-pulse {
+  animation: ops-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
