@@ -7,6 +7,7 @@
 :root {
   --background: #0B1120;
   --surface: #0F172A;
+  --surface-subtle: #161F37;
   --surface-elevated: #1E293B;
   --border: #1E293B;
   --border-strong: #334155;
@@ -53,7 +54,7 @@ body {
 .leaflet-control-zoom {
   border: 1px solid #334155 !important;
   background: #0F172A !important;
-  border-radius: 4px !important;
+  border-radius: 6px !important;
   overflow: hidden;
 }
 
@@ -71,9 +72,9 @@ body {
 }
 
 .leaflet-control-attribution {
-  background: rgba(15, 23, 42, 0.8) !important;
+  background: rgba(15, 23, 42, 0.85) !important;
   color: #64748B !important;
-  font-size: 10px !important;
+  font-size: 11px !important;
 }
 
 .leaflet-control-attribution a {
@@ -86,10 +87,11 @@ body {
     opacity: 1;
   }
   50% {
-    opacity: 0.4;
+    opacity: 0.45;
   }
 }
 
 .animate-ops-pulse {
-  animation: ops-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: ops-pulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+

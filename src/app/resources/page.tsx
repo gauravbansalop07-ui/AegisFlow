@@ -98,35 +98,27 @@ export default function ResourcesPage() {
   return (
     <div className="space-y-4 sm:space-y-6">
       {/* 1. Header & Situation Summary */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-2 border-b border-border">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-border/80">
         <div>
-          <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-lg sm:text-xl font-bold text-text-primary font-mono uppercase tracking-wider flex items-center gap-2">
-              <Boxes className="w-4 h-4 sm:w-5 sm:h-5 text-ops-cyan" />
+          <div className="flex flex-wrap items-center gap-2.5">
+            <h1 className="text-xl sm:text-2xl font-bold text-text-primary font-mono tracking-tight flex items-center gap-2.5">
+              <Boxes className="w-5 h-5 text-ops-cyan" />
               <span>Logistics & Resource Optimization</span>
             </h1>
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <Badge variant="info" size="sm">LOGISTICS</Badge>
-              <Badge variant="neutral" size="sm">SIMULATED</Badge>
-              <Tooltip content="Finite inventory is routed to highest Impact Score hotspots.">
-                <span className="cursor-help text-text-muted hover:text-ops-cyan">
-                  <Info className="w-3.5 h-3.5" />
-                </span>
-              </Tooltip>
-            </div>
+            <Badge variant="info">LOGISTICS MODEL</Badge>
           </div>
-          <p className="text-[11px] sm:text-xs text-text-secondary mt-1 font-mono">
+          <p className="text-xs sm:text-sm text-text-secondary mt-1 font-sans">
             Finite asset distribution model • Maximizes priority coverage under strict inventory bounds
           </p>
         </div>
 
         {/* Action Controls */}
-        <div className="flex items-center gap-2 sm:gap-3 font-mono flex-wrap">
+        <div className="flex items-center gap-3 font-mono flex-wrap">
           <Button
             variant="outline"
             size="sm"
             onClick={resetOptimizationMode}
-            className={`gap-1.5 text-xs py-1.5 ${!isOptimizedMode ? "border-ops-cyan text-ops-cyan bg-ops-cyan/10" : ""}`}
+            className={`gap-2 ${!isOptimizedMode ? "border-ops-cyan text-ops-cyan bg-ops-cyan/10" : ""}`}
           >
             <span>Manual Baseline</span>
           </Button>
@@ -136,40 +128,40 @@ export default function ResourcesPage() {
             size="sm"
             isLoading={isOptimizing}
             onClick={triggerOptimization}
-            className="gap-1.5 shadow-glow-cyan text-xs py-1.5 font-bold"
+            className="gap-2 font-bold shadow-sm"
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>{isOptimizing ? "ANALYZING..." : "OPTIMIZE ALLOCATION"}</span>
+            <Sparkles className="w-4 h-4" />
+            <span>{isOptimizing ? "Analyzing..." : "Optimize Allocation"}</span>
           </Button>
         </div>
       </div>
 
-      {/* 2. Resource Inventory Cards (5 Cards) - 2-col on phone */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3.5">
+      {/* 2. Resource Inventory Cards (5 Cards) */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
         {resources.map((res, idx) => {
           const utilPercent = Math.round((res.currentlyDeployed / res.totalInventory) * 100);
 
           return (
             <Card key={res.id} className={`border-border ${idx === resources.length - 1 ? "col-span-2 sm:col-span-1" : ""}`}>
-              <CardContent className="p-2.5 sm:p-3.5 space-y-1.5 sm:space-y-2">
+              <CardContent className="p-4 sm:p-5 space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[9.5px] sm:text-[10px] font-mono text-text-muted uppercase tracking-wider truncate">
+                  <span className="text-xs font-mono text-text-muted uppercase font-semibold tracking-wider truncate">
                     {res.name.split("/")[0]}
                   </span>
                   {getResourceIcon(res.type)}
                 </div>
 
                 <div className="flex items-baseline justify-between">
-                  <div className="text-xl sm:text-2xl font-bold font-mono text-ops-cyan">
+                  <div className="text-2xl sm:text-3xl font-bold font-mono text-ops-cyan">
                     {res.available.toLocaleString("en-IN")}
                   </div>
-                  <div className="text-[9px] sm:text-[10px] font-mono text-text-dim">
+                  <div className="text-xs font-mono text-text-muted">
                     / {res.totalInventory.toLocaleString("en-IN")} {res.unit}
                   </div>
                 </div>
 
-                <div className="space-y-1">
-                  <div className="flex justify-between text-[9px] sm:text-[10px] font-mono text-text-secondary">
+                <div className="space-y-1.5 pt-1">
+                  <div className="flex justify-between text-xs font-mono text-text-secondary">
                     <span>{res.currentlyDeployed.toLocaleString("en-IN")} Staged</span>
                     <span>{utilPercent}%</span>
                   </div>
@@ -187,32 +179,27 @@ export default function ResourcesPage() {
       </div>
 
       {/* 3. Optimization Gain & Comparison Banner */}
-      <Card className="border-border-strong bg-surface">
-        <CardContent className="p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 font-mono">
-          <div className="flex items-center gap-2.5 sm:gap-3">
+      <Card className="border-border bg-surface-elevated/70">
+        <CardContent className="p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono">
+          <div className="flex items-center gap-3.5">
             <div
-              className={`w-8 h-8 sm:w-10 sm:h-10 rounded flex items-center justify-center shrink-0 border ${
+              className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 border ${
                 isOptimizedMode
-                  ? "bg-ops-cyan/15 border-ops-cyan/50 text-ops-cyan shadow-glow-cyan"
+                  ? "bg-ops-cyan/15 border-ops-cyan/50 text-ops-cyan shadow-sm"
                   : "bg-surface-elevated border-border text-text-muted"
               }`}
             >
-              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
+              <Sparkles className="w-5 h-5" />
             </div>
-
             <div>
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-xs font-bold text-text-primary uppercase tracking-wide">
-                  Mode:
-                </span>
-                <Badge variant={isOptimizedMode ? "info" : "neutral"} size="sm">
-                  {isOptimizedMode ? "AEGISFLOW RECOMMENDATION" : "MANUAL BASELINE"}
-                </Badge>
+              <div className="font-bold text-text-primary text-xs sm:text-sm uppercase flex items-center gap-2">
+                <span>{isOptimizedMode ? "Optimized Priority Allocation Active" : "Manual / Unoptimized Baseline"}</span>
+                {isOptimizedMode && <Badge variant="safe" size="sm">ACTIVE</Badge>}
               </div>
-              <p className="text-[10.5px] sm:text-[11px] text-text-secondary mt-0.5 leading-snug">
+              <p className="text-xs text-text-secondary font-sans mt-0.5">
                 {isOptimizedMode
-                  ? `Prioritizing critical impact zones (Majuli, Lakhimpur, Dhemaji) based on vulnerability.`
-                  : `Conventional unoptimized distribution leaving critical deficits in vulnerable sectors.`}
+                  ? "Finite NDRF teams, SDRF boats, and medical kits are dynamically directed to top priority sectors (Majuli, Dhemaji, Dhubri)."
+                  : "Baseline uniform distribution. Click 'OPTIMIZE ALLOCATION' to redistribute assets based on Impact Score."}
               </p>
             </div>
           </div>

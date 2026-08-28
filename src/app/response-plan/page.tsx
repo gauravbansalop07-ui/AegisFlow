@@ -124,9 +124,9 @@ export default function ResponsePlanPage() {
 
       {/* Outdated Situation Alert Banner */}
       {plan.isOutdated && (
-        <div className="p-3 sm:p-3.5 rounded bg-ops-amber/15 border border-ops-amber/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 font-mono text-xs">
-          <div className="text-ops-amber text-[11px] sm:text-xs">
-            <strong className="text-text-primary uppercase">Situation Telemetry Changed: </strong>
+        <div className="p-4 rounded-lg bg-ops-amber/15 border border-ops-amber/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 font-mono text-xs">
+          <div className="text-ops-amber text-xs sm:text-sm">
+            <strong className="text-text-primary uppercase font-bold">Situation Telemetry Changed: </strong>
             Flood conditions were modified after this plan was synthesized.
           </div>
 
@@ -134,10 +134,10 @@ export default function ResponsePlanPage() {
             variant="warning"
             size="sm"
             onClick={() => regenerateResponsePlan()}
-            className="shrink-0 gap-1.5 text-xs py-1.5 w-full sm:w-auto justify-center"
+            className="shrink-0 gap-2 font-bold w-full sm:w-auto justify-center"
           >
-            <RotateCcw className="w-3.5 h-3.5" />
-            <span>REGENERATE PLAN</span>
+            <RotateCcw className="w-4 h-4" />
+            <span>Regenerate Plan</span>
           </Button>
         </div>
       )}
@@ -148,84 +148,84 @@ export default function ResponsePlanPage() {
       </div>
 
       {/* 3. Main Console Layout: Two Columns */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
         {/* LEFT COLUMN: Situation & Plan Actions (7 cols) */}
-        <div className="lg:col-span-7 space-y-3 sm:space-y-4">
+        <div className="lg:col-span-7 space-y-6">
           <PlanSituationDossier plan={plan} />
           <PlanDirectivesList actions={plan.recommendedActions} />
         </div>
 
         {/* RIGHT COLUMN: Resources, Map, and Road Simulator (5 cols) */}
-        <div className="lg:col-span-5 space-y-3 sm:space-y-4">
+        <div className="lg:col-span-5 space-y-6">
           {/* Authorized Resource Deployment Staging Card */}
           <Card className="border-border">
-            <CardHeader className="py-2.5 sm:py-3 bg-surface-subtle/50">
+            <CardHeader className="bg-surface-subtle/40">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-xs flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-xs">
                   <Boxes className="w-4 h-4 text-ops-amber" />
                   <span>AUTHORIZED ALLOTMENT</span>
                 </CardTitle>
-                <Badge variant="info" size="sm">Optimizer</Badge>
+                <Badge variant="info" size="sm">OPTIMIZER</Badge>
               </div>
             </CardHeader>
-            <CardContent className="p-3 sm:p-3.5 font-mono text-xs">
-              <div className="grid grid-cols-2 gap-2">
-                <div className="p-2 sm:p-2.5 rounded bg-surface-elevated border border-border flex items-center justify-between">
-                  <span className="text-text-muted flex items-center gap-1.5 text-[11px]">
-                    <Ship className="w-3.5 h-3.5 text-ops-cyan" />
+            <CardContent className="p-4 sm:p-5 font-mono text-xs">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="p-3 rounded-md bg-surface-elevated border border-border flex items-center justify-between">
+                  <span className="text-text-muted flex items-center gap-2 text-xs">
+                    <Ship className="w-4 h-4 text-ops-cyan" />
                     <span>Boats</span>
                   </span>
-                  <strong className="text-ops-cyan text-sm">{plan.recommendedResources.boats}</strong>
+                  <strong className="text-ops-cyan text-base">{plan.recommendedResources.boats}</strong>
                 </div>
 
-                <div className="p-2 sm:p-2.5 rounded bg-surface-elevated border border-border flex items-center justify-between">
-                  <span className="text-text-muted flex items-center gap-1.5 text-[11px]">
-                    <Boxes className="w-3.5 h-3.5 text-ops-amber" />
+                <div className="p-3 rounded-md bg-surface-elevated border border-border flex items-center justify-between">
+                  <span className="text-text-muted flex items-center gap-2 text-xs">
+                    <Boxes className="w-4 h-4 text-ops-amber" />
                     <span>Food Kits</span>
                   </span>
-                  <strong className="text-ops-amber text-sm">{plan.recommendedResources.foodKits.toLocaleString("en-IN")}</strong>
+                  <strong className="text-ops-amber text-base">{plan.recommendedResources.foodKits.toLocaleString("en-IN")}</strong>
                 </div>
 
-                <div className="p-2 sm:p-2.5 rounded bg-surface-elevated border border-border flex items-center justify-between">
-                  <span className="text-text-muted flex items-center gap-1.5 text-[11px]">
-                    <Shield className="w-3.5 h-3.5 text-ops-crimson" />
+                <div className="p-3 rounded-md bg-surface-elevated border border-border flex items-center justify-between">
+                  <span className="text-text-muted flex items-center gap-2 text-xs">
+                    <Shield className="w-4 h-4 text-ops-crimson" />
                     <span>Rescue</span>
                   </span>
-                  <strong className="text-ops-crimson text-sm">{plan.recommendedResources.rescueTeams}</strong>
+                  <strong className="text-ops-crimson text-base">{plan.recommendedResources.rescueTeams}</strong>
                 </div>
 
-                <div className="p-2 sm:p-2.5 rounded bg-surface-elevated border border-border flex items-center justify-between">
-                  <span className="text-text-muted flex items-center gap-1.5 text-[11px]">
-                    <HeartPulse className="w-3.5 h-3.5 text-ops-emerald" />
+                <div className="p-3 rounded-md bg-surface-elevated border border-border flex items-center justify-between">
+                  <span className="text-text-muted flex items-center gap-2 text-xs">
+                    <HeartPulse className="w-4 h-4 text-ops-emerald" />
                     <span>Medical</span>
                   </span>
-                  <strong className="text-ops-emerald text-sm">{plan.recommendedResources.medicalTeams}</strong>
+                  <strong className="text-ops-emerald text-base">{plan.recommendedResources.medicalTeams}</strong>
                 </div>
 
-                <div className="col-span-2 p-2 sm:p-2.5 rounded bg-surface-elevated border border-border flex items-center justify-between">
-                  <span className="text-text-muted flex items-center gap-1.5 text-[11px]">
-                    <Truck className="w-3.5 h-3.5 text-ops-indigo-light" />
-                    <span>ATVs</span>
+                <div className="col-span-2 p-3 rounded-md bg-surface-elevated border border-border flex items-center justify-between">
+                  <span className="text-text-muted flex items-center gap-2 text-xs">
+                    <Truck className="w-4 h-4 text-ops-indigo-light" />
+                    <span>ATVs & Logistics</span>
                   </span>
-                  <strong className="text-ops-indigo-light text-sm">{plan.recommendedResources.vehicles} Vehicles</strong>
+                  <strong className="text-ops-indigo-light text-base">{plan.recommendedResources.vehicles} Vehicles</strong>
                 </div>
               </div>
             </CardContent>
           </Card>
 
           {/* Evacuation Intelligence GIS Map */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between px-1 flex-wrap gap-1">
-              <span className="font-mono text-[11px] sm:text-xs font-semibold text-text-primary uppercase tracking-wider">
-                Evacuation Corridor Map
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between px-1 flex-wrap gap-2">
+              <span className="font-mono text-xs sm:text-sm font-bold text-text-primary uppercase tracking-wider">
+                Evacuation Corridor GIS Map
               </span>
-              <span className="text-[10px] font-mono text-text-muted">
-                Pulsing Cyan: Route
-              </span>
+              <Badge variant="info" size="sm">
+                DYNAMIC ROUTING
+              </Badge>
             </div>
 
             <AssamOverviewMap
-              className="w-full h-[280px] xs:h-[320px] sm:h-[380px]"
+              className="w-full h-[280px] xs:h-[320px] sm:h-[380px] rounded-lg border border-border"
               districts={districts}
               incidents={incidents}
               shelters={shelters}
@@ -295,25 +295,25 @@ export default function ResponsePlanPage() {
         </div>
       )}
 
-      {/* 5. Commander Decision Authorization Footer Bar */}
-      <Card className="bg-surface-subtle border-border-strong font-mono text-xs">
-        <CardContent className="p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-          <div className="flex items-center gap-2.5 sm:gap-3">
+      {/* 5. Incident Commander Final Approval Bar */}
+      <Card className="border-border bg-surface-elevated/70">
+        <CardContent className="p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
             <div
-              className={`w-9 h-9 sm:w-10 sm:h-10 rounded flex items-center justify-center shrink-0 border ${
+              className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 border ${
                 isApproved
-                  ? "bg-ops-emerald/20 border-ops-emerald/50 text-ops-emerald shadow-glow-emerald"
+                  ? "bg-ops-emerald/20 border-ops-emerald/50 text-ops-emerald"
                   : isRejected
                   ? "bg-ops-crimson/20 border-ops-crimson/50 text-ops-crimson"
-                  : "bg-ops-amber/20 border-ops-amber/50 text-ops-amber shadow-glow-amber"
+                  : "bg-ops-amber/20 border-ops-amber/50 text-ops-amber"
               }`}
             >
               {isApproved ? <CheckCircle2 className="w-5 h-5" /> : isRejected ? <XCircle className="w-5 h-5" /> : <UserCheck className="w-5 h-5" />}
             </div>
 
             <div>
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-xs font-bold text-text-primary uppercase tracking-wide">
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <span className="text-xs sm:text-sm font-bold font-mono text-text-primary uppercase tracking-wide">
                   Decision Status:
                 </span>
                 <Badge
@@ -323,7 +323,7 @@ export default function ResponsePlanPage() {
                   {plan.status.toUpperCase().replace(/_/g, " ")}
                 </Badge>
               </div>
-              <p className="text-[10.5px] sm:text-[11px] text-text-secondary mt-0.5 leading-snug">
+              <p className="text-xs text-text-secondary mt-1 font-sans leading-relaxed">
                 {isApproved
                   ? `Authorized by ${plan.approvedBy} at ${plan.approvedAt}. Action recorded in audit ledger.`
                   : isRejected
@@ -334,15 +334,15 @@ export default function ResponsePlanPage() {
           </div>
 
           {/* Action Triggers */}
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
+          <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
             <Button
               variant="outline"
               size="sm"
               onClick={() => setIsRejectModalOpen(true)}
-              className="gap-1.5 border-border hover:border-ops-crimson hover:text-ops-crimson text-xs py-2 flex-1 sm:flex-initial justify-center"
+              className="gap-2 border-border hover:border-ops-crimson hover:text-ops-crimson font-mono text-xs flex-1 sm:flex-initial justify-center"
             >
-              <XCircle className="w-3.5 h-3.5" />
-              <span>REJECT</span>
+              <XCircle className="w-4 h-4" />
+              <span>REJECT / MODIFY</span>
             </Button>
 
             <Button
@@ -350,11 +350,11 @@ export default function ResponsePlanPage() {
               size="sm"
               disabled={!plan.validation.isValid || isApproved}
               onClick={() => setIsApproveModalOpen(true)}
-              className={`gap-1.5 font-bold shadow-glow-emerald text-xs py-2 flex-1 sm:flex-initial justify-center ${
-                isApproved ? "bg-ops-emerald/40 cursor-not-allowed" : "bg-ops-emerald hover:bg-ops-emerald/90 text-background"
+              className={`gap-2 font-bold font-mono text-xs flex-1 sm:flex-initial justify-center shadow-sm ${
+                isApproved ? "bg-ops-emerald/40 cursor-not-allowed text-text-muted" : "bg-ops-emerald hover:bg-ops-emerald-dim text-background"
               }`}
             >
-              <CheckCircle2 className="w-3.5 h-3.5" />
+              <CheckCircle2 className="w-4 h-4" />
               <span>{isApproved ? "APPROVED" : "APPROVE RESPONSE PLAN"}</span>
             </Button>
           </div>

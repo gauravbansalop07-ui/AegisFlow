@@ -89,131 +89,123 @@ export default function RiskPrioritizationPage() {
   const nagaonScore = impactScores.find((s) => s.locationId === "nagaon") || impactScores[impactScores.length - 1];
 
   return (
-    <div className="space-y-4 sm:space-y-6">
+    <div className="space-y-6 sm:space-y-8">
       {/* 1. Header & Situation Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-2 border-b border-border">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-border/80">
         <div>
-          <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-lg sm:text-xl font-bold text-text-primary font-mono uppercase tracking-wider flex items-center gap-2">
-              <ShieldAlert className="w-4 h-4 sm:w-5 sm:h-5 text-ops-crimson" />
+          <div className="flex flex-wrap items-center gap-2.5">
+            <h1 className="text-xl sm:text-2xl font-bold text-text-primary font-mono tracking-tight flex items-center gap-2.5">
+              <ShieldAlert className="w-5 h-5 text-ops-crimson" />
               <span>Risk Prioritization & Decision Intelligence</span>
             </h1>
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <Badge variant="info" size="sm">DECISION MODEL</Badge>
-              <Badge variant="neutral" size="sm">DETERMINISTIC</Badge>
-              <Tooltip content="Deterministic mathematical risk model: Hazard Risk × (0.40 Exposure + 0.35 Vulnerability + 0.25 Infrastructure).">
-                <span className="cursor-help text-text-muted hover:text-ops-cyan">
-                  <Info className="w-3.5 h-3.5" />
-                </span>
-              </Tooltip>
-            </div>
+            <Badge variant="info">DECISION MODEL</Badge>
           </div>
-          <p className="text-[11px] sm:text-xs text-text-secondary mt-1 font-mono">
-            Vulnerability-weighted priority queue • Resolves where flood waters intersect human exposure
+          <p className="text-xs sm:text-sm text-text-secondary mt-1 font-sans">
+            Vulnerability-weighted priority queue • Resolves where flood waters intersect critical human & infrastructural exposure
           </p>
         </div>
 
         {/* Model Weights Banner */}
-        <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono bg-surface-elevated px-2.5 py-1 sm:py-1.5 rounded border border-border flex-wrap">
-          <span className="text-text-muted uppercase">Weights:</span>
+        <div className="flex items-center gap-2 text-xs font-mono bg-surface-elevated px-3 py-1.5 rounded-md border border-border flex-wrap">
+          <span className="text-text-muted uppercase font-semibold">Weights:</span>
           <span className="text-ops-amber font-bold">Exposure ({Math.round(RISK_WEIGHTS.exposure * 100)}%)</span>
-          <span className="text-text-dim">•</span>
+          <span className="text-text-muted">•</span>
           <span className="text-ops-crimson font-bold">Vuln ({Math.round(RISK_WEIGHTS.vulnerability * 100)}%)</span>
-          <span className="text-text-dim">•</span>
+          <span className="text-text-muted">•</span>
           <span className="text-ops-indigo-light font-bold">Infra ({Math.round(RISK_WEIGHTS.infrastructure * 100)}%)</span>
         </div>
       </div>
 
-      {/* 2. Priority Summary Cards - 2-col on phone */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+      {/* 2. Priority Summary Cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {/* Critical */}
         <Card
-          className="cursor-pointer hover:border-ops-crimson transition-all"
+          className="cursor-pointer hover:border-ops-crimson/50 transition-colors"
           onClick={() => setPriorityFilter(priorityFilter === "critical" ? "all" : "critical")}
         >
-          <CardContent className="p-2.5 sm:p-3.5 flex items-center justify-between">
+          <CardContent className="p-4 sm:p-5 flex items-center justify-between">
             <div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-muted uppercase tracking-wider">
+              <div className="text-xs font-mono text-text-muted uppercase font-semibold">
                 Critical (81-100)
               </div>
-              <div className="text-xl sm:text-2xl font-bold font-mono text-ops-crimson mt-0.5">
-                {criticalCount} <span className="text-xs text-text-muted font-normal">Districts</span>
+              <div className="text-2xl sm:text-3xl font-bold font-mono text-ops-crimson mt-1">
+                {criticalCount} <span className="text-sm text-text-muted font-normal">Districts</span>
               </div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-secondary mt-0.5">
-                Immediate evac
+              <div className="text-xs text-text-secondary mt-1 font-sans">
+                Immediate evacuation
               </div>
             </div>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded bg-ops-crimson/10 border border-ops-crimson/30 flex items-center justify-center text-ops-crimson shrink-0">
-              <ShieldAlert className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="w-10 h-10 rounded-lg bg-ops-crimson/10 border border-ops-crimson/30 flex items-center justify-center text-ops-crimson shrink-0">
+              <ShieldAlert className="w-5 h-5" />
             </div>
           </CardContent>
         </Card>
 
         {/* High */}
         <Card
-          className="cursor-pointer hover:border-ops-amber transition-all"
+          className="cursor-pointer hover:border-ops-amber/50 transition-colors"
           onClick={() => setPriorityFilter(priorityFilter === "high" ? "all" : "high")}
         >
-          <CardContent className="p-2.5 sm:p-3.5 flex items-center justify-between">
+          <CardContent className="p-4 sm:p-5 flex items-center justify-between">
             <div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-muted uppercase tracking-wider">
+              <div className="text-xs font-mono text-text-muted uppercase font-semibold">
                 High (61-80)
               </div>
-              <div className="text-xl sm:text-2xl font-bold font-mono text-ops-amber mt-0.5">
-                {highCount} <span className="text-xs text-text-muted font-normal">Districts</span>
+              <div className="text-2xl sm:text-3xl font-bold font-mono text-ops-amber mt-1">
+                {highCount} <span className="text-sm text-text-muted font-normal">Districts</span>
               </div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-secondary mt-0.5">
-                Pre-position
+              <div className="text-xs text-text-secondary mt-1 font-sans">
+                Pre-position rescue
               </div>
             </div>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded bg-ops-amber/10 border border-ops-amber/30 flex items-center justify-center text-ops-amber shrink-0">
-              <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="w-10 h-10 rounded-lg bg-ops-amber/10 border border-ops-amber/30 flex items-center justify-center text-ops-amber shrink-0">
+              <AlertTriangle className="w-5 h-5" />
             </div>
           </CardContent>
         </Card>
 
         {/* Moderate */}
         <Card
-          className="cursor-pointer hover:border-ops-indigo transition-all"
+          className="cursor-pointer hover:border-ops-indigo/50 transition-colors"
           onClick={() => setPriorityFilter(priorityFilter === "moderate" ? "all" : "moderate")}
         >
-          <CardContent className="p-2.5 sm:p-3.5 flex items-center justify-between">
+          <CardContent className="p-4 sm:p-5 flex items-center justify-between">
             <div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-muted uppercase tracking-wider">
+              <div className="text-xs font-mono text-text-muted uppercase font-semibold">
                 Moderate (41-60)
               </div>
-              <div className="text-xl sm:text-2xl font-bold font-mono text-ops-indigo-light mt-0.5">
-                {moderateCount} <span className="text-xs text-text-muted font-normal">Districts</span>
+              <div className="text-2xl sm:text-3xl font-bold font-mono text-ops-indigo-light mt-1">
+                {moderateCount} <span className="text-sm text-text-muted font-normal">Districts</span>
               </div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-secondary mt-0.5">
+              <div className="text-xs text-text-secondary mt-1 font-sans">
                 Shelter standby
               </div>
             </div>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded bg-ops-indigo/10 border border-ops-indigo/30 flex items-center justify-center text-ops-indigo-light shrink-0">
-              <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="w-10 h-10 rounded-lg bg-ops-indigo/10 border border-ops-indigo/30 flex items-center justify-center text-ops-indigo-light shrink-0">
+              <Users className="w-5 h-5" />
             </div>
           </CardContent>
         </Card>
 
         {/* Safe / Low */}
         <Card
-          className="cursor-pointer hover:border-ops-emerald transition-all"
+          className="cursor-pointer hover:border-ops-emerald/50 transition-colors"
           onClick={() => setPriorityFilter(priorityFilter === "safe" ? "all" : "safe")}
         >
-          <CardContent className="p-2.5 sm:p-3.5 flex items-center justify-between">
+          <CardContent className="p-4 sm:p-5 flex items-center justify-between">
             <div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-muted uppercase tracking-wider">
+              <div className="text-xs font-mono text-text-muted uppercase font-semibold">
                 Safe / Low (&lt;40)
               </div>
-              <div className="text-xl sm:text-2xl font-bold font-mono text-ops-emerald mt-0.5">
-                {safeCount} <span className="text-xs text-text-muted font-normal">Districts</span>
+              <div className="text-2xl sm:text-3xl font-bold font-mono text-ops-emerald mt-1">
+                {safeCount} <span className="text-sm text-text-muted font-normal">Districts</span>
               </div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-secondary mt-0.5">
-                Surveillance
+              <div className="text-xs text-text-secondary mt-1 font-sans">
+                Routine surveillance
               </div>
             </div>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded bg-ops-emerald/10 border border-ops-emerald/30 flex items-center justify-center text-ops-emerald shrink-0">
-              <Compass className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="w-10 h-10 rounded-lg bg-ops-emerald/10 border border-ops-emerald/30 flex items-center justify-center text-ops-emerald shrink-0">
+              <Compass className="w-5 h-5" />
             </div>
           </CardContent>
         </Card>
@@ -221,31 +213,31 @@ export default function RiskPrioritizationPage() {
 
       {/* 3. Priority Queue Table with Sorting & Filters */}
       <Card>
-        <CardHeader className="py-2.5 sm:py-3 bg-surface-subtle/50">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-2.5">
+        <CardHeader className="bg-surface-subtle/40">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
             <div>
-              <CardTitle className="flex items-center gap-2 text-xs sm:text-sm">
+              <CardTitle className="flex items-center gap-2.5">
                 <span>OPERATIONAL PRIORITY QUEUE</span>
                 <Badge variant="info" size="sm">
                   {filteredAndSortedScores.length} Ranked
                 </Badge>
               </CardTitle>
-              <CardDescription className="text-[10px] sm:text-[11px]">
-                Ranked by Impact Score. Tap any row to inspect explainability.
+              <CardDescription>
+                Ranked strictly by Impact Risk Score. Tap any location row to inspect factor breakdown and explainability.
               </CardDescription>
             </div>
 
             {/* Filters and Search Bar */}
-            <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
+            <div className="flex flex-wrap items-center gap-2.5 font-mono text-xs">
               {/* Search */}
               <div className="relative flex-1 sm:flex-initial">
-                <Search className="w-3.5 h-3.5 text-text-muted absolute left-2.5 top-1/2 -translate-y-1/2" />
+                <Search className="w-3.5 h-3.5 text-text-muted absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   placeholder="Search settlement..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-surface-elevated text-xs font-mono text-text-primary pl-8 pr-3 py-1.5 rounded border border-border focus:border-ops-cyan focus:outline-none w-full sm:w-44"
+                  className="bg-surface-elevated text-xs font-mono text-text-primary pl-9 pr-3 py-2 rounded-md border border-border focus:border-ops-cyan focus:outline-none w-full sm:w-48"
                 />
               </div>
 
@@ -253,20 +245,20 @@ export default function RiskPrioritizationPage() {
               <select
                 value={priorityFilter}
                 onChange={(e) => setPriorityFilter(e.target.value)}
-                className="bg-surface-elevated text-xs font-mono text-text-primary px-2.5 py-1.5 rounded border border-border focus:border-ops-cyan focus:outline-none uppercase"
+                className="bg-surface-elevated text-xs font-mono text-text-primary px-3 py-2 rounded-md border border-border focus:border-ops-cyan focus:outline-none uppercase cursor-pointer"
               >
                 <option value="all">Priority: All</option>
                 <option value="critical">Critical</option>
                 <option value="high">High</option>
                 <option value="moderate">Moderate</option>
-                <option value="safe">Safe/Low</option>
+                <option value="safe">Safe / Low</option>
               </select>
 
               {/* District Filter */}
               <select
                 value={districtFilter}
                 onChange={(e) => setDistrictFilter(e.target.value)}
-                className="bg-surface-elevated text-xs font-mono text-text-primary px-2.5 py-1.5 rounded border border-border focus:border-ops-cyan focus:outline-none max-w-[130px] truncate"
+                className="bg-surface-elevated text-xs font-mono text-text-primary px-3 py-2 rounded-md border border-border focus:border-ops-cyan focus:outline-none max-w-[140px] truncate cursor-pointer"
               >
                 <option value="all">District: All</option>
                 {districts.map((d) => (
@@ -280,15 +272,15 @@ export default function RiskPrioritizationPage() {
         </CardHeader>
 
         <CardContent className="p-0 overflow-x-auto">
-          <table className="w-full text-left font-mono text-xs min-w-[620px]">
-            <thead className="bg-surface-subtle text-text-muted text-[10px] uppercase border-b border-border select-none">
+          <table className="w-full text-left font-mono text-xs min-w-[680px]">
+            <thead className="bg-surface-subtle text-text-muted text-[11px] uppercase border-b border-border select-none">
               <tr>
-                <th className="py-2.5 px-3 text-center">Rank</th>
-                <th className="py-2.5 px-3">Location / Settlement</th>
-                <th className="py-2.5 px-3">District</th>
+                <th className="py-3 px-4 text-center">Rank</th>
+                <th className="py-3 px-4">Location / Settlement</th>
+                <th className="py-3 px-4">District</th>
                 <th
                   onClick={() => handleSort("hazardRisk")}
-                  className="py-2.5 px-2.5 text-center cursor-pointer hover:text-ops-cyan"
+                  className="py-3 px-3 text-center cursor-pointer hover:text-ops-cyan"
                 >
                   <div className="flex items-center justify-center gap-1">
                     <span>Hazard</span>
@@ -297,7 +289,7 @@ export default function RiskPrioritizationPage() {
                 </th>
                 <th
                   onClick={() => handleSort("populationExposureScore")}
-                  className="py-2.5 px-2.5 text-center cursor-pointer hover:text-ops-cyan"
+                  className="py-3 px-3 text-center cursor-pointer hover:text-ops-cyan"
                 >
                   <div className="flex items-center justify-center gap-1">
                     <span>Exposure</span>
@@ -306,7 +298,7 @@ export default function RiskPrioritizationPage() {
                 </th>
                 <th
                   onClick={() => handleSort("demographicVulnerability")}
-                  className="py-2.5 px-2.5 text-center cursor-pointer hover:text-ops-cyan"
+                  className="py-3 px-3 text-center cursor-pointer hover:text-ops-cyan"
                 >
                   <div className="flex items-center justify-center gap-1">
                     <span>Vuln</span>
@@ -315,16 +307,16 @@ export default function RiskPrioritizationPage() {
                 </th>
                 <th
                   onClick={() => handleSort("impactScore")}
-                  className="py-2.5 px-3 text-center cursor-pointer hover:text-ops-cyan text-ops-cyan font-bold"
+                  className="py-3 px-4 text-center cursor-pointer hover:text-ops-cyan text-ops-cyan font-bold"
                 >
                   <div className="flex items-center justify-center gap-1">
                     <span>Impact Score</span>
                     <ArrowUpDown className="w-3 h-3" />
                   </div>
                 </th>
-                <th className="py-2.5 px-3 text-center">Priority</th>
-                <th className="py-2.5 px-3">Action</th>
-                <th className="py-2.5 px-3 text-right">Details</th>
+                <th className="py-3 px-4 text-center">Priority</th>
+                <th className="py-3 px-4">Action</th>
+                <th className="py-3 px-4 text-right">Details</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border/60">
@@ -340,9 +332,9 @@ export default function RiskPrioritizationPage() {
                     className="hover:bg-surface-elevated transition-colors cursor-pointer group"
                   >
                     {/* Rank */}
-                    <td className="py-2.5 px-3 text-center font-bold">
+                    <td className="py-3.5 px-4 text-center font-bold">
                       <span
-                        className={`inline-flex items-center justify-center w-5 h-5 rounded-full text-[11px] ${
+                        className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-mono font-bold ${
                           item.rank === 1
                             ? "bg-ops-crimson/20 text-ops-crimson border border-ops-crimson/40"
                             : item.rank === 2
@@ -355,41 +347,41 @@ export default function RiskPrioritizationPage() {
                     </td>
 
                     {/* Location */}
-                    <td className="py-2.5 px-3">
-                      <div className="font-bold text-text-primary uppercase group-hover:text-ops-cyan transition-colors">
+                    <td className="py-3.5 px-4">
+                      <div className="font-bold text-text-primary text-sm uppercase group-hover:text-ops-cyan transition-colors">
                         {item.locationName}
                       </div>
-                      <div className="text-[10px] text-text-muted">
-                        Pop: {item.populationExposed.toLocaleString("en-IN")}
+                      <div className="text-xs text-text-muted mt-0.5 font-sans">
+                        Pop: {item.populationExposed.toLocaleString("en-IN")} exposed
                       </div>
                     </td>
 
                     {/* District */}
-                    <td className="py-2.5 px-3 text-text-secondary text-[11px]">
+                    <td className="py-3.5 px-4 text-text-secondary text-xs">
                       {item.districtName} ({item.code})
                     </td>
 
                     {/* Hazard Risk */}
-                    <td className="py-2.5 px-2.5 text-center font-bold text-text-primary">
+                    <td className="py-3.5 px-3 text-center font-bold text-text-primary text-xs">
                       {item.hazardRisk}
                     </td>
 
                     {/* Exposure */}
-                    <td className="py-2.5 px-2.5 text-center text-ops-amber font-semibold">
+                    <td className="py-3.5 px-3 text-center text-ops-amber font-semibold text-xs">
                       {item.populationExposureScore}
                     </td>
 
                     {/* Vulnerability */}
-                    <td className="py-2.5 px-2.5 text-center text-ops-crimson font-semibold">
+                    <td className="py-3.5 px-3 text-center text-ops-crimson font-semibold text-xs">
                       {item.demographicVulnerability}
                     </td>
 
                     {/* Impact Score */}
-                    <td className="py-2.5 px-3 text-center">
+                    <td className="py-3.5 px-4 text-center">
                       <span
-                        className={`text-xs font-black px-2 py-0.5 rounded border ${
+                        className={`text-sm font-black px-2.5 py-1 rounded border font-mono ${
                           isCrit
-                            ? "bg-ops-crimson/15 text-ops-crimson border-ops-crimson/30 shadow-glow-crimson"
+                            ? "bg-ops-crimson/15 text-ops-crimson border-ops-crimson/30"
                             : isHigh
                             ? "bg-ops-amber/15 text-ops-amber border-ops-amber/30"
                             : isMod
@@ -402,7 +394,7 @@ export default function RiskPrioritizationPage() {
                     </td>
 
                     {/* Priority Badge */}
-                    <td className="py-2.5 px-3 text-center">
+                    <td className="py-3.5 px-4 text-center">
                       <Badge
                         variant={isCrit ? "critical" : isHigh ? "warning" : isMod ? "neutral" : "safe"}
                         dot={isCrit}
@@ -413,12 +405,12 @@ export default function RiskPrioritizationPage() {
                     </td>
 
                     {/* Recommended Action */}
-                    <td className="py-2.5 px-3 text-[10.5px] text-text-secondary max-w-xs truncate">
+                    <td className="py-3.5 px-4 text-xs text-text-secondary max-w-xs truncate font-sans">
                       {item.recommendedAction}
                     </td>
 
                     {/* Details Arrow */}
-                    <td className="py-2.5 px-3 text-right">
+                    <td className="py-3.5 px-4 text-right">
                       <ChevronRight className="w-4 h-4 text-text-muted group-hover:text-ops-cyan group-hover:translate-x-0.5 transition-all inline" />
                     </td>
                   </tr>
@@ -428,6 +420,7 @@ export default function RiskPrioritizationPage() {
           </table>
         </CardContent>
       </Card>
+
 
       {/* 4. Hazard Risk vs Impact Risk Comparative Matrix & The USP Demonstration */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">

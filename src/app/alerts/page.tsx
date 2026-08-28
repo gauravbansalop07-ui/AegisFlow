@@ -96,36 +96,31 @@ export default function AlertsPage() {
   }, [selectedAlert, optimizationResult]);
 
   return (
-    <div className="space-y-4 sm:space-y-6">
+    <div className="space-y-6 sm:space-y-8">
       {/* 1. Situation Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-2 border-b border-border">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-border/80">
         <div>
-          <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-lg sm:text-xl font-bold text-text-primary font-mono uppercase tracking-wider flex items-center gap-2">
-              <BellRing className="w-4 h-4 sm:w-5 sm:h-5 text-ops-cyan" />
+          <div className="flex flex-wrap items-center gap-2.5">
+            <h1 className="text-xl sm:text-2xl font-bold text-text-primary font-mono tracking-tight flex items-center gap-2.5">
+              <BellRing className="w-5 h-5 text-ops-cyan" />
               <span>Official Intelligence & Warning Feed</span>
             </h1>
-            <div className="flex items-center gap-1.5 flex-wrap">
+            <div className="flex items-center gap-2 flex-wrap">
               <Badge variant="info" size="sm">CWC</Badge>
               <Badge variant="warning" size="sm">IMD</Badge>
               <Badge variant="neutral" size="sm">ASDMA</Badge>
-              <Tooltip content="Preserves official agency warnings as authoritative. Ingests simulated hydrological, meteorological, and state emergency alerts.">
-                <span className="cursor-help text-text-muted hover:text-ops-cyan">
-                  <Info className="w-3.5 h-3.5" />
-                </span>
-              </Tooltip>
             </div>
           </div>
-          <p className="text-[11px] sm:text-xs text-text-secondary mt-1 font-mono">
+          <p className="text-xs sm:text-sm text-text-secondary mt-1 font-sans">
             Authoritative multi-agency disaster bulletins correlated with AegisFlow impact models
           </p>
         </div>
 
         {/* Tune Simulation Link */}
-        <div className="flex items-center gap-2 sm:gap-3 font-mono">
+        <div className="flex items-center gap-3 font-mono">
           <Link href="/hazard-monitor">
-            <Button variant="secondary" size="sm" className="gap-1.5 text-xs py-1.5">
-              <SlidersHorizontal className="w-3.5 h-3.5 text-ops-cyan" />
+            <Button variant="secondary" size="sm" className="gap-2">
+              <SlidersHorizontal className="w-4 h-4 text-ops-cyan" />
               <span>Tune Simulation</span>
             </Button>
           </Link>
@@ -149,16 +144,16 @@ export default function AlertsPage() {
       />
 
       {/* 4. Main Feed + Mini GIS Spatial Context Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
         {/* Alerts Table Feed (8 cols) */}
-        <div className="lg:col-span-8 space-y-2.5 sm:space-y-3">
+        <div className="lg:col-span-8 space-y-3">
           <div className="flex items-center justify-between px-1 font-mono text-xs text-text-muted">
-            <span className="text-[11px]">
+            <span className="text-xs">
               Showing <strong className="text-text-primary">{filteredAlerts.length}</strong> of {alerts.length} Bulletins
             </span>
-            <span className="text-[10px] text-ops-emerald flex items-center gap-1">
-              <Radio className="w-3 h-3 animate-pulse" />
-              <span>Feed Live</span>
+            <span className="text-xs text-ops-emerald flex items-center gap-1.5 font-semibold">
+              <Radio className="w-3.5 h-3.5 animate-pulse" />
+              LIVE TELEMETRY SYNC
             </span>
           </div>
 

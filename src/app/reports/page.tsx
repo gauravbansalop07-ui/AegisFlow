@@ -67,42 +67,36 @@ export default function ReportsPage() {
   }
 
   return (
-    <div className="space-y-4 sm:space-y-6">
+    <div className="space-y-6 sm:space-y-8">
       {/* 1. Header & Actions */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-2 border-b border-border">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-border/80">
         <div>
-          <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-lg sm:text-xl font-bold text-text-primary font-mono uppercase tracking-wider flex items-center gap-2">
-              <FileSpreadsheet className="w-4 h-4 sm:w-5 sm:h-5 text-ops-cyan" />
+          <div className="flex flex-wrap items-center gap-2.5">
+            <h1 className="text-xl sm:text-2xl font-bold text-text-primary font-mono tracking-tight flex items-center gap-2.5">
+              <FileSpreadsheet className="w-5 h-5 text-ops-cyan" />
               <span>Operational Situation Report</span>
             </h1>
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <Badge variant="safe" dot={true} size="sm">
+            <div className="flex items-center gap-2 flex-wrap">
+              <Badge variant="safe" dot={true}>
                 {report.operationalStatus}
               </Badge>
-              <Badge variant="info" size="sm">{report.reportCode}</Badge>
-              <Badge variant="neutral" size="sm">{report.reportSessionId}</Badge>
-              <Tooltip content="Consolidates live telemetry, priority rankings, optimized logistics, evacuation safety, official alerts, and commander decisions.">
-                <span className="cursor-help text-text-muted hover:text-ops-cyan">
-                  <Info className="w-3.5 h-3.5" />
-                </span>
-              </Tooltip>
+              <Badge variant="info">{report.reportCode}</Badge>
             </div>
           </div>
-          <p className="text-[11px] sm:text-xs text-text-secondary mt-1 font-mono">
+          <p className="text-xs sm:text-sm text-text-secondary mt-1 font-sans">
             State Operations Briefing • Scenario: <strong className="text-text-primary">{report.scenario}</strong>
           </p>
         </div>
 
         {/* Action Controls */}
-        <div className="flex flex-wrap items-center gap-2 font-mono">
+        <div className="flex flex-wrap items-center gap-3 font-mono">
           <Button
             variant="outline"
             size="sm"
             onClick={handlePrint}
-            className="gap-1.5 text-xs py-1.5"
+            className="gap-2"
           >
-            <Printer className="w-3.5 h-3.5" />
+            <Printer className="w-4 h-4" />
             <span>Print</span>
           </Button>
 
@@ -110,9 +104,9 @@ export default function ReportsPage() {
             variant="outline"
             size="sm"
             onClick={handleDownloadMarkdown}
-            className="gap-1.5 text-xs py-1.5"
+            className="gap-2"
           >
-            <Download className="w-3.5 h-3.5 text-ops-cyan" />
+            <Download className="w-4 h-4 text-ops-cyan" />
             <span>Export MD</span>
           </Button>
 
@@ -120,28 +114,28 @@ export default function ReportsPage() {
             variant="primary"
             size="sm"
             onClick={generateIncidentReport}
-            className="gap-1.5 font-bold shadow-glow-cyan text-xs py-1.5"
+            className="gap-2 font-bold shadow-sm"
           >
-            <PlusCircle className="w-3.5 h-3.5" />
+            <PlusCircle className="w-4 h-4" />
             <span>Snapshot</span>
           </Button>
         </div>
       </div>
 
       {/* 2. Main Executive Dossier Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
         {/* Left Column: Report Sections (9 cols) */}
-        <div className="lg:col-span-9 space-y-4 sm:space-y-6">
+        <div className="lg:col-span-9 space-y-6">
           <ReportExecutiveKpiGrid report={report} />
           <ReportPriorityAndResources report={report} />
           <ReportAuditAndTimeline report={report} />
         </div>
 
         {/* Right Column: Historical Reports Archive (3 cols) */}
-        <div className="lg:col-span-3 space-y-3 sm:space-y-4">
-          <div className="p-3 sm:p-3.5 rounded bg-surface border border-border space-y-2.5 sm:space-y-3 font-mono text-xs">
-            <div className="flex items-center justify-between pb-2 border-b border-border">
-              <div className="flex items-center gap-1.5 font-bold text-text-primary text-[11px] uppercase">
+        <div className="lg:col-span-3 space-y-4">
+          <div className="p-4 sm:p-5 rounded-lg bg-surface border border-border space-y-3 font-mono text-xs shadow-sm">
+            <div className="flex items-center justify-between pb-2.5 border-b border-border">
+              <div className="flex items-center gap-2 font-bold text-text-primary text-xs uppercase">
                 <History className="w-4 h-4 text-ops-cyan" />
                 <span>Report History</span>
               </div>
@@ -150,13 +144,14 @@ export default function ReportsPage() {
               </Badge>
             </div>
 
-            <p className="text-[10px] sm:text-[10.5px] text-text-muted leading-relaxed">
+            <p className="text-xs text-text-muted font-sans leading-relaxed">
               Every snapshot preserves an immutable record of telemetry, decisions, and routes at that moment.
             </p>
 
-            <div className="space-y-1.5 max-h-[300px] lg:max-h-[520px] overflow-y-auto pr-1">
+            <div className="space-y-2 max-h-[340px] lg:max-h-[540px] overflow-y-auto pr-1">
               {reportHistory.map((h) => {
                 const isSelected = h.id === report.id;
+
 
                 return (
                   <div

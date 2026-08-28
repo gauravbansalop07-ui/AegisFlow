@@ -100,41 +100,31 @@ export default function HazardMonitorPage() {
   };
 
   return (
-    <div className="space-y-4 sm:space-y-6">
+    <div className="space-y-6 sm:space-y-8">
       {/* 1. Situation Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-2 border-b border-border">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-border/80">
         <div>
-          <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-lg sm:text-xl font-bold text-text-primary font-mono uppercase tracking-wider flex items-center gap-2">
-              <Waves className="w-4 h-4 sm:w-5 sm:h-5 text-ops-cyan" />
+          <div className="flex flex-wrap items-center gap-2.5">
+            <h1 className="text-xl sm:text-2xl font-bold text-text-primary font-mono tracking-tight flex items-center gap-2.5">
+              <Waves className="w-5 h-5 text-ops-cyan" />
               <span>Hazard Monitor & Flood Simulator</span>
             </h1>
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <Badge variant="warning" dot={true} size="sm">
-                SIMULATION MODE
-              </Badge>
-              <Badge variant="neutral" size="sm">DEMO DATA</Badge>
-              <Tooltip content="Deterministic calculation based on rainfall, river gauges, and terrain sensitivities.">
-                <span className="cursor-help text-text-muted hover:text-ops-cyan">
-                  <Info className="w-3.5 h-3.5" />
-                </span>
-              </Tooltip>
-            </div>
+            <Badge variant="warning" dot={true}>SIMULATION MODE</Badge>
           </div>
-          <p className="text-[11px] sm:text-xs text-text-secondary mt-1 font-mono">
+          <p className="text-xs sm:text-sm text-text-secondary mt-1 font-sans">
             Deterministic hydro-meteorological flood simulation engine • Real-time district hazard propagation
           </p>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+        <div className="flex items-center gap-3 flex-wrap">
           <Button
             variant="outline"
             size="sm"
             onClick={handleReset}
-            className="gap-1.5 text-xs py-1.5"
+            className="gap-2"
           >
-            <RotateCcw className="w-3.5 h-3.5" />
-            <span>RESET</span>
+            <RotateCcw className="w-4 h-4" />
+            <span>Reset Baseline</span>
           </Button>
 
           <Button
@@ -142,29 +132,29 @@ export default function HazardMonitorPage() {
             size="sm"
             isLoading={isSimulating}
             onClick={handleRunSimulation}
-            className="gap-1.5 shadow-glow-cyan text-xs py-1.5 font-bold"
+            className="gap-2 font-bold shadow-sm"
           >
-            <Play className="w-3.5 h-3.5" />
-            <span>{isSimulating ? "ANALYZING..." : "RUN SIMULATION"}</span>
+            <Play className="w-4 h-4" />
+            <span>{isSimulating ? "Analyzing..." : "Run Simulation"}</span>
           </Button>
         </div>
       </div>
 
       {/* 2. Simulation Control Panel */}
-      <Card className="bg-surface border-border-strong">
-        <CardHeader className="py-2.5 sm:py-3 bg-surface-subtle/70">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
+      <Card className="bg-surface border-border">
+        <CardHeader className="bg-surface-subtle/40">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
               <SlidersHorizontal className="w-4 h-4 text-ops-cyan" />
-              <CardTitle className="text-xs sm:text-sm">FLOOD SIMULATION CONTROLS</CardTitle>
+              <CardTitle>HYDROLOGICAL SIMULATION PARAMETERS</CardTitle>
             </div>
 
             {/* Scenario Presets Quick Bar */}
-            <div className="flex items-center gap-1.5 sm:gap-2 font-mono text-xs flex-wrap">
-              <span className="text-[10px] sm:text-[11px] text-text-muted uppercase">Presets:</span>
+            <div className="flex items-center gap-2 font-mono text-xs flex-wrap">
+              <span className="text-xs text-text-muted uppercase font-semibold">Presets:</span>
               <button
                 onClick={() => handlePresetClick("normal_monsoon")}
-                className={`px-2 py-0.5 sm:py-1 rounded text-[10px] sm:text-[11px] font-mono border transition-all ${
+                className={`px-3 py-1 rounded-md text-xs font-mono border transition-colors ${
                   simulationState.scenarioPreset === "normal_monsoon"
                     ? "bg-ops-emerald/20 border-ops-emerald text-ops-emerald font-bold"
                     : "bg-surface-elevated border-border text-text-secondary hover:text-text-primary"
@@ -174,7 +164,7 @@ export default function HazardMonitorPage() {
               </button>
               <button
                 onClick={() => handlePresetClick("majuli_breach_scenario")}
-                className={`px-2 py-0.5 sm:py-1 rounded text-[10px] sm:text-[11px] font-mono border transition-all ${
+                className={`px-3 py-1 rounded-md text-xs font-mono border transition-colors ${
                   simulationState.scenarioPreset === "majuli_breach_scenario"
                     ? "bg-ops-cyan/20 border-ops-cyan text-ops-cyan font-bold"
                     : "bg-surface-elevated border-border text-text-secondary hover:text-text-primary"
@@ -184,7 +174,7 @@ export default function HazardMonitorPage() {
               </button>
               <button
                 onClick={() => handlePresetClick("extreme_rainfall")}
-                className={`px-2 py-0.5 sm:py-1 rounded text-[10px] sm:text-[11px] font-mono border transition-all ${
+                className={`px-3 py-1 rounded-md text-xs font-mono border transition-colors ${
                   simulationState.scenarioPreset === "extreme_rainfall"
                     ? "bg-ops-crimson/20 border-ops-crimson text-ops-crimson font-bold"
                     : "bg-surface-elevated border-border text-text-secondary hover:text-text-primary"
@@ -196,25 +186,25 @@ export default function HazardMonitorPage() {
           </div>
         </CardHeader>
 
-        <CardContent className="p-3 sm:p-4 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 font-mono">
+        <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono">
           {/* Param 1: Rainfall Intensity */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-text-secondary uppercase font-bold flex items-center gap-1.5">
-                <CloudRain className="w-3.5 h-3.5 text-ops-cyan" />
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between text-xs sm:text-sm">
+              <span className="text-text-primary uppercase font-bold flex items-center gap-2">
+                <CloudRain className="w-4 h-4 text-ops-cyan" />
                 <span>1. Rainfall Intensity</span>
               </span>
               <span className="text-ops-cyan font-bold uppercase">{selectedRainfall}</span>
             </div>
-            <div className="grid grid-cols-3 gap-1.5">
+            <div className="grid grid-cols-3 gap-2">
               {(["normal", "heavy", "extreme"] as RainfallIntensity[]).map((level) => (
                 <button
                   key={level}
                   onClick={() => setSelectedRainfall(level)}
-                  className={`py-1.5 sm:py-2 px-1 text-center text-xs rounded border transition-all uppercase ${
+                  className={`py-2 px-2 text-center text-xs rounded-md border transition-all uppercase font-semibold ${
                     selectedRainfall === level
                       ? level === "extreme"
-                        ? "bg-ops-crimson/20 border-ops-crimson text-ops-crimson font-bold shadow-glow-crimson"
+                        ? "bg-ops-crimson/20 border-ops-crimson text-ops-crimson font-bold"
                         : level === "heavy"
                         ? "bg-ops-amber/20 border-ops-amber text-ops-amber font-bold"
                         : "bg-ops-emerald/20 border-ops-emerald text-ops-emerald font-bold"
@@ -225,21 +215,21 @@ export default function HazardMonitorPage() {
                 </button>
               ))}
             </div>
-            <div className="text-[9.5px] sm:text-[10px] text-text-dim">
-              {selectedRainfall === "normal" && "Baseline seasonal showers (30 - 60mm/24h)"}
-              {selectedRainfall === "heavy" && "Torrential catchment downpour (120 - 180mm/24h)"}
-              {selectedRainfall === "extreme" && "Severe cloudburst clustering (200 - 280mm/24h)"}
-            </div>
+            <p className="text-xs text-text-secondary font-sans leading-relaxed">
+              {selectedRainfall === "normal" && "Baseline seasonal showers (30 - 60mm / 24h)"}
+              {selectedRainfall === "heavy" && "Torrential catchment downpour (120 - 180mm / 24h)"}
+              {selectedRainfall === "extreme" && "Severe cloudburst clustering (200 - 280mm / 24h)"}
+            </p>
           </div>
 
           {/* Param 2: River Gauge Level */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-text-secondary uppercase font-bold flex items-center gap-1.5">
-                <Waves className="w-3.5 h-3.5 text-ops-cyan" />
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between text-xs sm:text-sm">
+              <span className="text-text-primary uppercase font-bold flex items-center gap-2">
+                <Waves className="w-4 h-4 text-ops-cyan" />
                 <span>2. River Gauge Level</span>
               </span>
-              <span className="text-ops-crimson font-bold uppercase text-[11px] sm:text-xs">
+              <span className="text-ops-crimson font-bold uppercase text-xs">
                 {selectedRiver.replace("_", " ")}
               </span>
             </div>
@@ -249,10 +239,10 @@ export default function HazardMonitorPage() {
                   <button
                     key={level}
                     onClick={() => setSelectedRiver(level)}
-                    className={`py-1.5 sm:py-2 px-0.5 text-center text-[10px] rounded border transition-all uppercase tracking-tight ${
+                    className={`py-2 px-1 text-center text-xs rounded-md border transition-all uppercase tracking-tight font-semibold ${
                       selectedRiver === level
                         ? level === "critical"
-                          ? "bg-ops-crimson/20 border-ops-crimson text-ops-crimson font-bold shadow-glow-crimson"
+                          ? "bg-ops-crimson/20 border-ops-crimson text-ops-crimson font-bold"
                           : level === "above_danger"
                           ? "bg-ops-amber/20 border-ops-amber text-ops-amber font-bold"
                           : level === "near_danger"
@@ -272,19 +262,19 @@ export default function HazardMonitorPage() {
                 )
               )}
             </div>
-            <div className="text-[9.5px] sm:text-[10px] text-text-dim">
-              {selectedRiver === "below_danger" && "River gauge levels below warning marks (-0.5m)"}
-              {selectedRiver === "near_danger" && "Approaching danger mark across major tributaries"}
+            <p className="text-xs text-text-secondary font-sans leading-relaxed">
+              {selectedRiver === "below_danger" && "Levels below warning mark (-0.5m)"}
+              {selectedRiver === "near_danger" && "Approaching danger mark across major stations"}
               {selectedRiver === "above_danger" && "Exceeded danger mark (+0.8m), bank overflows"}
               {selectedRiver === "critical" && "Crossed HFL (+2.0m), embankment breach threat"}
-            </div>
+            </p>
           </div>
 
           {/* Param 3: Forecast Horizon */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-text-secondary uppercase font-bold flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-ops-amber" />
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between text-xs sm:text-sm">
+              <span className="text-text-primary uppercase font-bold flex items-center gap-2">
+                <Clock className="w-4 h-4 text-ops-amber" />
                 <span>3. Forecast Horizon</span>
               </span>
               <span className="text-ops-amber font-bold">{selectedHorizon}</span>
@@ -294,9 +284,9 @@ export default function HazardMonitorPage() {
                 <button
                   key={horizon}
                   onClick={() => setSelectedHorizon(horizon)}
-                  className={`py-1.5 sm:py-2 px-1 text-center text-xs rounded border transition-all font-bold ${
+                  className={`py-2 px-1 text-center text-xs rounded-md border transition-all font-bold ${
                     selectedHorizon === horizon
-                      ? "bg-ops-amber/20 border-ops-amber text-ops-amber shadow-ops-sm"
+                      ? "bg-ops-amber/20 border-ops-amber text-ops-amber font-bold"
                       : "bg-surface-elevated border-border text-text-muted hover:text-text-primary"
                   }`}
                 >
@@ -304,91 +294,92 @@ export default function HazardMonitorPage() {
                 </button>
               ))}
             </div>
-            <div className="text-[9.5px] sm:text-[10px] text-text-dim">
-              Catchment runoff & tributary swelling accumulation window
-            </div>
+            <p className="text-xs text-text-secondary font-sans leading-relaxed">
+              Runoff accumulation and flood surge forecast window
+            </p>
           </div>
         </CardContent>
       </Card>
 
-      {/* 3. Hazard Metrics Strip - Responsive 2-col on phone */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+      {/* 3. Hazard Metrics Strip */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <Card className="border-border">
-          <CardContent className="p-2.5 sm:p-3.5 flex items-center justify-between">
+          <CardContent className="p-4 sm:p-5 flex items-center justify-between">
             <div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-muted uppercase">
+              <div className="text-xs font-mono text-text-muted uppercase font-semibold">
                 24h Rainfall
               </div>
-              <div className="text-xl sm:text-2xl font-bold font-mono text-ops-cyan mt-0.5">
+              <div className="text-2xl sm:text-3xl font-bold font-mono text-ops-cyan mt-1">
                 {simulationResult.globalRainfallMm} mm
               </div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-dim mt-0.5 uppercase">
+              <div className="text-xs font-mono text-text-secondary mt-1 uppercase">
                 {simulationState.rainfallIntensity}
               </div>
             </div>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded bg-ops-cyan/10 border border-ops-cyan/30 flex items-center justify-center text-ops-cyan shrink-0">
-              <CloudRain className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="w-10 h-10 rounded-lg bg-ops-cyan/10 border border-ops-cyan/30 flex items-center justify-center text-ops-cyan shrink-0">
+              <CloudRain className="w-5 h-5" />
             </div>
           </CardContent>
         </Card>
 
         <Card className="border-border">
-          <CardContent className="p-2.5 sm:p-3.5 flex items-center justify-between">
+          <CardContent className="p-4 sm:p-5 flex items-center justify-between">
             <div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-muted uppercase">
+              <div className="text-xs font-mono text-text-muted uppercase font-semibold">
                 River Delta
               </div>
-              <div className="text-xl sm:text-2xl font-bold font-mono text-ops-crimson mt-0.5">
+              <div className="text-2xl sm:text-3xl font-bold font-mono text-ops-crimson mt-1">
                 +{simulationResult.globalRiverDeltaM}m
               </div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-dim mt-0.5 uppercase truncate max-w-[100px]">
+              <div className="text-xs font-mono text-text-secondary mt-1 uppercase truncate max-w-[120px]">
                 {simulationState.riverGaugeLevel.replace("_", " ")}
               </div>
             </div>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded bg-ops-crimson/10 border border-ops-crimson/30 flex items-center justify-center text-ops-crimson shrink-0">
-              <Waves className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="w-10 h-10 rounded-lg bg-ops-crimson/10 border border-ops-crimson/30 flex items-center justify-center text-ops-crimson shrink-0">
+              <Waves className="w-5 h-5" />
             </div>
           </CardContent>
         </Card>
 
         <Card className="border-border">
-          <CardContent className="p-2.5 sm:p-3.5 flex items-center justify-between">
+          <CardContent className="p-4 sm:p-5 flex items-center justify-between">
             <div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-muted uppercase">
-                Exposed Pop
+              <div className="text-xs font-mono text-text-muted uppercase font-semibold">
+                Exposed Population
               </div>
-              <div className="text-xl sm:text-2xl font-bold font-mono text-ops-amber mt-0.5">
+              <div className="text-2xl sm:text-3xl font-bold font-mono text-ops-amber mt-1">
                 {(simulationResult.totalPopulationAffected / 100000).toFixed(2)}L+
               </div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-dim mt-0.5">
-                {simulationResult.totalPopulationAffected.toLocaleString("en-IN")} residents
+              <div className="text-xs font-mono text-text-secondary mt-1">
+                {simulationResult.totalPopulationAffected.toLocaleString("en-IN")} citizens
               </div>
             </div>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded bg-ops-amber/10 border border-ops-amber/30 flex items-center justify-center text-ops-amber shrink-0">
-              <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="w-10 h-10 rounded-lg bg-ops-amber/10 border border-ops-amber/30 flex items-center justify-center text-ops-amber shrink-0">
+              <Users className="w-5 h-5" />
             </div>
           </CardContent>
         </Card>
 
         <Card className="border-border">
-          <CardContent className="p-2.5 sm:p-3.5 flex items-center justify-between">
+          <CardContent className="p-4 sm:p-5 flex items-center justify-between">
             <div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-muted uppercase">
-                In Danger
+              <div className="text-xs font-mono text-text-muted uppercase font-semibold">
+                Sectors in Danger
               </div>
-              <div className="text-xl sm:text-2xl font-bold font-mono text-text-primary mt-0.5">
-                {simulationResult.districtsAtRiskCount} <span className="text-xs text-text-muted font-normal">/ 34</span>
+              <div className="text-2xl sm:text-3xl font-bold font-mono text-text-primary mt-1">
+                {simulationResult.districtsAtRiskCount} <span className="text-sm text-text-muted font-normal">/ 34</span>
               </div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-ops-crimson mt-0.5">
+              <div className="text-xs font-mono text-ops-crimson mt-1 font-semibold">
                 {simulationResult.criticalDistrictsCount} Critical
               </div>
             </div>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded bg-surface-elevated border border-border flex items-center justify-center text-ops-cyan shrink-0">
-              <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="w-10 h-10 rounded-lg bg-surface-elevated border border-border flex items-center justify-center text-ops-cyan shrink-0">
+              <Activity className="w-5 h-5" />
             </div>
           </CardContent>
         </Card>
       </div>
+
 
       {/* 4. Main Intelligence Map with Dynamic Inundation Extent */}
       <div className="space-y-2">

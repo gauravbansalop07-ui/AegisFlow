@@ -21,6 +21,7 @@ import {
   Compass,
   ExternalLink,
   SlidersHorizontal,
+  ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
 import { useAegisFlow } from "@/context/AegisFlowContext";
@@ -66,233 +67,193 @@ export default function OverviewPage() {
   };
 
   return (
-    <div className="space-y-4 sm:space-y-6">
-      {/* 1. Situation Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-2 border-b border-border">
+    <div className="space-y-6 sm:space-y-8">
+      {/* 1. Page Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-border/80">
         <div>
-          <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-lg sm:text-xl font-bold text-text-primary font-mono uppercase tracking-wider">
-              Assam Flood Situation
+          <div className="flex flex-wrap items-center gap-2.5">
+            <h1 className="text-xl sm:text-2xl font-bold text-text-primary font-mono tracking-tight">
+              Assam Flood Emergency Operations
             </h1>
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <Badge variant="warning" dot={true} size="sm">
-                SIMULATION MODE
-              </Badge>
-              <Badge variant="neutral" size="sm">DEMO DATA</Badge>
-              <span className="inline-flex items-center gap-1 text-[10px] font-mono px-1.5 py-0.5 rounded bg-ops-emerald/10 text-ops-emerald border border-ops-emerald/30">
-                <span className="w-1.5 h-1.5 rounded-full bg-ops-emerald animate-pulse" />
-                OPERATIONAL
-              </span>
-            </div>
+            <Badge variant="safe" dot={true}>OPERATIONAL</Badge>
           </div>
-          <p className="text-[11px] sm:text-xs text-text-secondary mt-1 font-mono">
-            Unified disaster intelligence • Flood response operations • Brahmaputra Basin Hydro-GIS
+          <p className="text-xs sm:text-sm text-text-secondary mt-1 font-sans">
+            Unified hydro-GIS disaster intelligence • Brahmaputra Basin real-time response
           </p>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-          <div className="text-right hidden sm:block">
-            <div className="text-[10px] font-mono text-text-muted">Situation Sync</div>
-            <div className="text-xs font-mono font-bold text-ops-cyan">
-              {simulationState.lastUpdatedTimestamp}
-            </div>
-          </div>
+        <div className="flex items-center gap-3 flex-wrap">
           <Link href="/hazard-monitor">
-            <Button variant="outline" size="sm" className="gap-1.5 text-xs py-1.5">
+            <Button variant="outline" size="sm" className="gap-2">
               <SlidersHorizontal className="w-3.5 h-3.5 text-ops-cyan" />
-              <span>Simulate</span>
+              <span>Simulate Scenario</span>
             </Button>
           </Link>
           <Button
             variant="destructive"
             size="sm"
-            className="gap-1.5 text-xs py-1.5"
+            className="gap-2 font-bold"
             onClick={() => setIsResponseModalOpen(true)}
           >
-            <ShieldAlert className="w-3.5 h-3.5" />
+            <ShieldAlert className="w-4 h-4" />
             <span>ACTIVATE RESPONSE</span>
           </Button>
         </div>
       </div>
 
       {/* Commander Welcome & Status Briefing Banner */}
-      <div className="p-3 sm:p-3.5 rounded-lg bg-gradient-to-r from-ops-cyan/15 via-surface-elevated to-surface border border-ops-cyan/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 font-mono text-xs shadow-sm">
-        <div className="flex items-center gap-2.5 sm:gap-3">
-          <div className="w-8 h-8 rounded-full bg-ops-cyan/20 border border-ops-cyan/50 flex items-center justify-center text-ops-cyan font-bold text-xs shrink-0 shadow-glow-cyan">
+      <div className="p-4 sm:p-5 rounded-lg bg-surface-elevated/70 border border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
+        <div className="flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-full bg-ops-cyan/15 border border-ops-cyan/40 flex items-center justify-center text-ops-cyan font-bold text-sm shrink-0">
             GB
           </div>
           <div>
-            <div className="font-bold text-text-primary text-xs flex items-center gap-2 flex-wrap">
+            <div className="font-bold text-text-primary text-sm font-mono flex items-center gap-2 flex-wrap">
               <span>Commander Gaurav Bansal</span>
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-ops-cyan/20 text-ops-cyan border border-ops-cyan/40">
-                EOC ACTIVE
-              </span>
+              <span className="text-xs font-normal text-text-muted font-sans">• EOC Incident Commander</span>
             </div>
-            <p className="text-[10.5px] sm:text-[11px] text-text-secondary mt-0.5 leading-snug">
-              Telemetry synchronized. {simulationResult.criticalDistrictsCount} sectors at critical flood surge. Follow the workflow: <strong className="text-ops-cyan">Sense → Predict → Prioritize → Act</strong>.
+            <p className="text-xs sm:text-sm text-text-secondary mt-1 leading-relaxed font-sans">
+              Hydro telemetry synchronized. <strong className="text-ops-crimson">{simulationResult.criticalDistrictsCount} sectors</strong> at critical flood surge. Follow the workflow: <strong className="text-ops-cyan">Sense → Predict → Prioritize → Act</strong>.
             </p>
           </div>
         </div>
         <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto">
           <Link href="/risk-prioritization" className="w-full sm:w-auto">
-            <Button variant="secondary" size="sm" className="text-xs h-7 gap-1 hover:border-ops-cyan/50 w-full sm:w-auto justify-center">
-              <span>View Top Priorities</span>
-              <ChevronRight className="w-3 h-3 text-ops-cyan" />
+            <Button variant="secondary" size="sm" className="gap-1.5 w-full sm:w-auto justify-center">
+              <span>View Priority Queue</span>
+              <ChevronRight className="w-4 h-4 text-ops-cyan" />
             </Button>
           </Link>
         </div>
       </div>
 
-      {/* 2. KPI Strip - Responsive 2-col on phone, 5-col on desktop */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3.5">
+      {/* 2. KPI Summary Cards (Clean, Bold, High Readability) */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
         {/* KPI 1: Casualties */}
-        <Card className="hover:border-ops-crimson/50 transition-colors">
-          <CardContent className="p-2.5 sm:p-3.5 flex items-center justify-between">
-            <div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-muted uppercase tracking-wider">
-                Casualties
-              </div>
-              <div className="text-xl sm:text-2xl font-bold font-mono text-ops-crimson mt-0.5 tracking-tight">
-                {simulationResult.simulatedCasualties}
-              </div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-secondary mt-0.5">
-                Reported
-              </div>
+        <Card className="border-border hover:border-ops-crimson/40 transition-colors">
+          <CardContent className="p-4 sm:p-5">
+            <div className="text-xs font-mono uppercase text-text-muted font-semibold tracking-wider">
+              Casualties
             </div>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded bg-ops-crimson/10 border border-ops-crimson/30 flex items-center justify-center text-ops-crimson shrink-0">
-              <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="text-2xl sm:text-3xl font-bold font-mono text-ops-crimson mt-1 tracking-tight">
+              {simulationResult.simulatedCasualties}
+            </div>
+            <div className="text-xs text-text-secondary mt-1 font-sans">
+              Reported across sectors
             </div>
           </CardContent>
         </Card>
 
         {/* KPI 2: Population Affected */}
-        <Card className="hover:border-ops-amber/50 transition-colors">
-          <CardContent className="p-2.5 sm:p-3.5 flex items-center justify-between">
-            <div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-muted uppercase tracking-wider">
-                Exposed Pop
-              </div>
-              <div className="text-xl sm:text-2xl font-bold font-mono text-ops-amber mt-0.5 tracking-tight">
-                {(simulationResult.totalPopulationAffected / 100000).toFixed(2)}L+
-              </div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-secondary mt-0.5">
-                {simulationResult.districtsAtRiskCount} districts
-              </div>
+        <Card className="border-border hover:border-ops-amber/40 transition-colors">
+          <CardContent className="p-4 sm:p-5">
+            <div className="text-xs font-mono uppercase text-text-muted font-semibold tracking-wider">
+              Exposed Pop
             </div>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded bg-ops-amber/10 border border-ops-amber/30 flex items-center justify-center text-ops-amber shrink-0">
-              <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="text-2xl sm:text-3xl font-bold font-mono text-ops-amber mt-1 tracking-tight">
+              {(simulationResult.totalPopulationAffected / 100000).toFixed(2)}L+
+            </div>
+            <div className="text-xs text-text-secondary mt-1 font-sans">
+              {simulationResult.districtsAtRiskCount} districts in danger
             </div>
           </CardContent>
         </Card>
 
-        {/* KPI 3: Districts Impacted */}
-        <Card className="hover:border-ops-cyan/50 transition-colors">
-          <CardContent className="p-2.5 sm:p-3.5 flex items-center justify-between">
-            <div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-muted uppercase tracking-wider">
-                In Danger
-              </div>
-              <div className="text-xl sm:text-2xl font-bold font-mono text-text-primary mt-0.5 tracking-tight">
-                {simulationResult.districtsAtRiskCount} <span className="text-xs text-text-muted font-normal">/ 34</span>
-              </div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-ops-crimson mt-0.5">
-                {simulationResult.criticalDistrictsCount} Critical
-              </div>
+        {/* KPI 3: Districts in Danger */}
+        <Card className="border-border hover:border-ops-cyan/40 transition-colors">
+          <CardContent className="p-4 sm:p-5">
+            <div className="text-xs font-mono uppercase text-text-muted font-semibold tracking-wider">
+              Districts at Risk
             </div>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded bg-surface-elevated border border-border flex items-center justify-center text-ops-cyan shrink-0">
-              <Activity className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="text-2xl sm:text-3xl font-bold font-mono text-text-primary mt-1 tracking-tight">
+              {simulationResult.districtsAtRiskCount} <span className="text-sm text-text-muted font-normal">/ 34</span>
+            </div>
+            <div className="text-xs text-ops-crimson mt-1 font-sans font-medium">
+              {simulationResult.criticalDistrictsCount} Critical Hotspots
             </div>
           </CardContent>
         </Card>
 
         {/* KPI 4: Relief Camps */}
-        <Card className="hover:border-ops-emerald/50 transition-colors">
-          <CardContent className="p-2.5 sm:p-3.5 flex items-center justify-between">
-            <div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-muted uppercase tracking-wider">
-                Relief Camps
-              </div>
-              <div className="text-xl sm:text-2xl font-bold font-mono text-ops-emerald mt-0.5 tracking-tight">
-                {simulationResult.reliefCampsRequired.toLocaleString("en-IN")}+
-              </div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-secondary mt-0.5">
-                74% Capacity
-              </div>
+        <Card className="border-border hover:border-ops-emerald/40 transition-colors">
+          <CardContent className="p-4 sm:p-5">
+            <div className="text-xs font-mono uppercase text-text-muted font-semibold tracking-wider">
+              Relief Shelters
             </div>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded bg-ops-emerald/10 border border-ops-emerald/30 flex items-center justify-center text-ops-emerald shrink-0">
-              <Building2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="text-2xl sm:text-3xl font-bold font-mono text-ops-emerald mt-1 tracking-tight">
+              {simulationResult.reliefCampsRequired.toLocaleString("en-IN")}+
+            </div>
+            <div className="text-xs text-text-secondary mt-1 font-sans">
+              74% capacity occupied
             </div>
           </CardContent>
         </Card>
 
-        {/* KPI 5: Resources Deployed - Full width on smallest 2-col wrap */}
-        <Card className="col-span-2 sm:col-span-1 hover:border-ops-indigo/50 transition-colors">
-          <CardContent className="p-2.5 sm:p-3.5 flex items-center justify-between">
-            <div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-muted uppercase tracking-wider">
-                Resources
-              </div>
-              <div className="text-xl sm:text-2xl font-bold font-mono text-ops-indigo-light mt-0.5 tracking-tight">
-                {simulationResult.resourcesDeployedCount.toLocaleString("en-IN")}+
-              </div>
-              <div className="text-[9px] sm:text-[10px] font-mono text-text-secondary mt-0.5">
-                Units deployed
-              </div>
+        {/* KPI 5: Resources Deployed */}
+        <Card className="col-span-2 sm:col-span-1 border-border hover:border-ops-indigo/40 transition-colors">
+          <CardContent className="p-4 sm:p-5">
+            <div className="text-xs font-mono uppercase text-text-muted font-semibold tracking-wider">
+              Resources Staged
             </div>
-            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded bg-ops-indigo/10 border border-ops-indigo/30 flex items-center justify-center text-ops-indigo-light shrink-0">
-              <Boxes className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <div className="text-2xl sm:text-3xl font-bold font-mono text-ops-indigo-light mt-1 tracking-tight">
+              {simulationResult.resourcesDeployedCount.toLocaleString("en-IN")}+
+            </div>
+            <div className="text-xs text-text-secondary mt-1 font-sans">
+              Active equipment units
             </div>
           </CardContent>
         </Card>
       </div>
 
       {/* 3. Main Operations Area (Map: ~65%, Incidents: ~35%) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
-        {/* Main Map */}
-        <div className="lg:col-span-8 space-y-2">
-          <div className="flex items-center justify-between px-1 flex-wrap gap-1">
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-[11px] sm:text-xs font-semibold text-text-primary uppercase tracking-wider">
-                Brahmaputra Basin Map
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+        {/* Main Map Container */}
+        <div className="lg:col-span-8 space-y-3">
+          <div className="flex items-center justify-between px-1 flex-wrap gap-2">
+            <div className="flex items-center gap-2.5">
+              <span className="font-mono text-xs sm:text-sm font-bold text-text-primary uppercase tracking-wider">
+                Assam Flood Inundation & River GIS Map
               </span>
               <Badge variant="info" size="sm">LIVE GIS</Badge>
             </div>
-            <span className="text-[10px] sm:text-[11px] font-mono text-text-muted">
-              Tap hot-spots for telemetry
+            <span className="text-xs font-mono text-text-muted">
+              Select district or hotspot to inspect telemetry
             </span>
           </div>
 
-          <AssamOverviewMap
-            className="w-full h-[320px] xs:h-[380px] sm:h-[450px] lg:h-[520px]"
-            districts={districts}
-            incidents={incidents}
-            shelters={shelters}
-            gauges={gauges}
-            inundationPolygons={inundationPolygons}
-            onSelectIncident={handleSelectIncident}
-            onSelectDistrict={handleSelectDistrict}
-          />
+          <div className="rounded-lg border border-border overflow-hidden shadow-sm">
+            <AssamOverviewMap
+              className="w-full h-[360px] xs:h-[420px] sm:h-[480px] lg:h-[540px]"
+              districts={districts}
+              incidents={incidents}
+              shelters={shelters}
+              gauges={gauges}
+              inundationPolygons={inundationPolygons}
+              onSelectIncident={handleSelectIncident}
+              onSelectDistrict={handleSelectDistrict}
+            />
+          </div>
         </div>
 
         {/* Prioritized Incidents Panel */}
-        <div className="lg:col-span-4 space-y-2.5 sm:space-y-3">
+        <div className="lg:col-span-4 space-y-3">
           <div className="flex items-center justify-between px-1">
-            <div className="flex items-center gap-1.5 sm:gap-2">
+            <div className="flex items-center gap-2">
               <ShieldAlert className="w-4 h-4 text-ops-crimson" />
-              <span className="font-mono text-xs font-semibold text-text-primary uppercase tracking-wider">
+              <span className="font-mono text-xs sm:text-sm font-bold text-text-primary uppercase tracking-wider">
                 Prioritized Incidents
               </span>
             </div>
             <Link
               href="/risk-prioritization"
-              className="text-[10px] font-mono text-ops-cyan hover:underline flex items-center gap-0.5"
+              className="text-xs font-mono text-ops-cyan hover:underline flex items-center gap-1"
             >
-              <span>Priority Queue</span>
-              <ChevronRight className="w-3 h-3" />
+              <span>Full Queue</span>
+              <ChevronRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          <div className="space-y-2 max-h-[360px] sm:max-h-[520px] overflow-y-auto pr-1">
+          <div className="space-y-3 max-h-[540px] overflow-y-auto pr-1">
             {incidents.map((incident) => {
               const isCrit = incident.severity === "critical";
               const isHigh = incident.severity === "high";
@@ -301,7 +262,7 @@ export default function OverviewPage() {
                 <div
                   key={incident.id}
                   onClick={() => handleSelectIncident(incident)}
-                  className={`p-3 rounded border transition-all duration-150 cursor-pointer text-xs font-mono group hover:border-ops-cyan/60 ${
+                  className={`p-3.5 sm:p-4 rounded-lg border transition-all duration-150 cursor-pointer text-xs font-mono group hover:border-ops-cyan/60 ${
                     isCrit
                       ? "bg-surface border-ops-crimson/40 hover:bg-surface-elevated"
                       : isHigh
@@ -318,30 +279,30 @@ export default function OverviewPage() {
                       >
                         {incident.severity}
                       </Badge>
-                      <span className="text-[10px] text-text-muted flex items-center gap-1">
-                        <Clock className="w-3 h-3 text-text-dim" />
+                      <span className="text-xs text-text-muted flex items-center gap-1">
+                        <Clock className="w-3 h-3 text-text-muted" />
                         {incident.timestamp}
                       </span>
                     </div>
-                    <ChevronRight className="w-3.5 h-3.5 text-text-muted group-hover:text-ops-cyan group-hover:translate-x-0.5 transition-all" />
+                    <ChevronRight className="w-4 h-4 text-text-muted group-hover:text-ops-cyan group-hover:translate-x-0.5 transition-all" />
                   </div>
 
-                  <div className="font-bold text-text-primary text-xs uppercase tracking-wide mt-2">
+                  <div className="font-bold text-text-primary text-sm uppercase tracking-wide mt-2">
                     {incident.title}
                   </div>
 
-                  <div className="text-[11px] font-semibold text-ops-cyan mt-0.5">
+                  <div className="text-xs font-semibold text-ops-cyan mt-0.5">
                     {incident.condition}
                   </div>
 
-                  <div className="text-[10px] text-text-secondary mt-1 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-text-secondary mt-1.5 line-clamp-2 leading-relaxed font-sans">
                     {incident.locationName} • {incident.description}
-                  </div>
+                  </p>
 
-                  <div className="mt-2 pt-1.5 border-t border-border/60 flex items-center justify-between">
-                    <div className="text-[10px] text-text-dim uppercase truncate">
-                      Action: <span className="text-text-primary font-medium">{incident.actionRequired}</span>
-                    </div>
+                  <div className="mt-2.5 pt-2 border-t border-border/60 flex items-center justify-between text-xs">
+                    <span className="text-text-muted">
+                      Action: <strong className="text-text-primary font-mono">{incident.actionRequired}</strong>
+                    </span>
                   </div>
                 </div>
               );
@@ -350,50 +311,48 @@ export default function OverviewPage() {
         </div>
       </div>
 
-      {/* 4. Operational Intelligence Row */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 pt-1">
+      {/* 4. Operational Intelligence Row (3 Cards with generous padding) */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Col 1: Impact Priority Distribution Chart */}
         <Card>
-          <CardHeader className="py-2.5 sm:py-3">
+          <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle className="flex items-center gap-2 text-xs sm:text-sm">
-                <Activity className="w-3.5 h-3.5 text-ops-cyan" />
+              <CardTitle className="flex items-center gap-2">
+                <Activity className="w-4 h-4 text-ops-cyan" />
                 <span>IMPACT DISTRIBUTION</span>
               </CardTitle>
               <Link
                 href="/risk-prioritization"
-                className="text-[10px] font-mono text-ops-cyan hover:underline flex items-center gap-0.5"
+                className="text-xs font-mono text-ops-cyan hover:underline flex items-center gap-0.5"
               >
-                <span>Full Queue</span>
+                <span>Queue</span>
                 <ChevronRight className="w-3 h-3" />
               </Link>
             </div>
-            <CardDescription className="text-[10.5px]">
+            <CardDescription>
               Categorized by Impact Risk Model (Hazard × Vulnerability)
             </CardDescription>
           </CardHeader>
-          <CardContent className="pt-1 pb-3">
+          <CardContent className="pt-2 pb-4">
             <RiskDistributionChart districts={districts} />
           </CardContent>
         </Card>
 
         {/* Col 2: River Gauges Status */}
         <Card>
-          <CardHeader className="py-2.5 sm:py-3">
+          <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle className="flex items-center gap-2 text-xs sm:text-sm">
-                <Waves className="w-3.5 h-3.5 text-ops-cyan" />
-                <span>Hydrological Gauges</span>
+              <CardTitle className="flex items-center gap-2">
+                <Waves className="w-4 h-4 text-ops-cyan" />
+                <span>HYDROLOGICAL GAUGES</span>
               </CardTitle>
-              <Badge variant="info" size="sm">
-                CWC Data
-              </Badge>
+              <Badge variant="info" size="sm">CWC</Badge>
             </div>
-            <CardDescription className="text-[10.5px]">
-              Brahmaputra and major tributary stations
+            <CardDescription>
+              Brahmaputra and major tributary telemetry stations
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-2 pt-1 font-mono text-xs max-h-48 overflow-y-auto pr-1">
+          <CardContent className="space-y-2.5 pt-2 font-mono text-xs max-h-56 overflow-y-auto pr-1">
             {gauges.slice(0, 4).map((gauge) => {
               const isCrit = gauge.status === "critical";
               const isAbove = gauge.status === "above_danger";
@@ -412,14 +371,14 @@ export default function OverviewPage() {
               return (
                 <div
                   key={gauge.id}
-                  className="p-2 sm:p-2.5 rounded bg-surface-elevated border border-border space-y-1"
+                  className="p-2.5 rounded-md bg-surface-elevated border border-border space-y-1.5"
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="font-bold text-text-primary text-[11px] uppercase">
+                      <span className="font-bold text-text-primary text-xs uppercase">
                         {gauge.stationName}
                       </span>
-                      <span className="text-[10px] text-text-muted ml-1">
+                      <span className="text-xs text-text-muted ml-1">
                         ({gauge.riverName})
                       </span>
                     </div>
@@ -431,11 +390,11 @@ export default function OverviewPage() {
                     </Badge>
                   </div>
 
-                  <div className="flex items-center justify-between text-[10px] sm:text-[11px]">
+                  <div className="flex items-center justify-between text-xs">
                     <span className="text-text-secondary">
                       Current: <strong className="text-text-primary">{gauge.currentLevelM}m</strong>
                     </span>
-                    <span className="text-text-dim text-[9.5px]">
+                    <span className="text-text-muted">
                       Danger: {gauge.dangerLevelM}m
                     </span>
                   </div>
@@ -456,39 +415,39 @@ export default function OverviewPage() {
 
         {/* Col 3: Resource Inventory Status */}
         <Card>
-          <CardHeader className="py-2.5 sm:py-3">
+          <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle className="flex items-center gap-2 text-xs sm:text-sm">
-                <Boxes className="w-3.5 h-3.5 text-ops-amber" />
-                <span>Resource Inventory</span>
+              <CardTitle className="flex items-center gap-2">
+                <Boxes className="w-4 h-4 text-ops-amber" />
+                <span>RESOURCE INVENTORY</span>
               </CardTitle>
               <Link
                 href="/resources"
-                className="text-[10px] font-mono text-ops-cyan hover:underline flex items-center gap-1"
+                className="text-xs font-mono text-ops-cyan hover:underline flex items-center gap-1"
               >
-                <span>Details</span>
+                <span>Matrix</span>
                 <ChevronRight className="w-3 h-3" />
               </Link>
             </div>
-            <CardDescription className="text-[10.5px]">
-              Staged state-wide demonstration relief equipment
+            <CardDescription>
+              Staged state-wide demonstration relief inventory
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-1.5 sm:space-y-2 pt-1 font-mono text-xs max-h-48 overflow-y-auto pr-1">
+          <CardContent className="space-y-2 pt-2 font-mono text-xs max-h-56 overflow-y-auto pr-1">
             {resources.map((res) => {
               const percentAvail = Math.round((res.available / res.totalInventory) * 100);
 
               return (
                 <div
                   key={res.id}
-                  className="p-2 rounded bg-surface-elevated border border-border flex items-center justify-between"
+                  className="p-2.5 rounded-md bg-surface-elevated border border-border flex items-center justify-between"
                 >
                   <div className="space-y-0.5">
-                    <div className="text-[11px] font-bold text-text-primary">
+                    <div className="text-xs font-bold text-text-primary">
                       {res.name}
                     </div>
-                    <div className="text-[9.5px] text-text-dim">
-                      {res.currentlyDeployed.toLocaleString("en-IN")} deployed / {res.totalInventory.toLocaleString("en-IN")} total
+                    <div className="text-[11px] text-text-muted">
+                      {res.currentlyDeployed.toLocaleString("en-IN")} staged / {res.totalInventory.toLocaleString("en-IN")} total
                     </div>
                   </div>
 
@@ -496,7 +455,7 @@ export default function OverviewPage() {
                     <div className="text-xs font-bold text-ops-cyan">
                       {res.available.toLocaleString("en-IN")} {res.unit}
                     </div>
-                    <div className="text-[9px] text-text-muted font-medium">
+                    <div className="text-[10px] text-text-muted">
                       {percentAvail}% Avail
                     </div>
                   </div>
@@ -508,49 +467,49 @@ export default function OverviewPage() {
       </div>
 
       {/* 5. Quick Actions Footer Bar */}
-      <Card className="bg-surface-subtle border-border-strong">
-        <CardContent className="p-3 sm:p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded bg-ops-cyan/10 border border-ops-cyan/30 flex items-center justify-center text-ops-cyan shrink-0">
-              <Compass className="w-4 h-4" />
+      <Card className="bg-surface-elevated/70 border-border">
+        <CardContent className="p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-ops-cyan/10 border border-ops-cyan/30 flex items-center justify-center text-ops-cyan shrink-0">
+              <Compass className="w-5 h-5" />
             </div>
             <div>
-              <div className="font-mono text-xs font-bold text-text-primary uppercase tracking-wide">
-                Commander Quick Actions
+              <div className="font-mono text-sm font-bold text-text-primary uppercase tracking-wide">
+                Commander Workflow Directives
               </div>
-              <p className="text-[10.5px] sm:text-[11px] font-mono text-text-secondary">
-                Direct workflow routing to prioritize hotspots, mobilize staged assets, and approve directives.
+              <p className="text-xs text-text-secondary mt-0.5 font-sans">
+                Direct decision-support routing to prioritize hotspots, optimize staging, and approve directives.
               </p>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
+          <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
             <Button
               variant="destructive"
               size="sm"
-              className="gap-1.5 text-xs py-1.5 flex-1 sm:flex-initial justify-center"
+              className="gap-2 text-xs font-bold flex-1 sm:flex-initial justify-center"
               onClick={() => setIsResponseModalOpen(true)}
             >
-              <ShieldAlert className="w-3.5 h-3.5" />
+              <ShieldAlert className="w-4 h-4" />
               <span>ACTIVATE RESPONSE</span>
             </Button>
 
             <Link href="/risk-prioritization" className="flex-1 sm:flex-initial">
-              <Button variant="primary" size="sm" className="gap-1.5 text-xs py-1.5 w-full justify-center">
+              <Button variant="primary" size="sm" className="gap-1.5 text-xs w-full justify-center">
                 <span>PRIORITY QUEUE</span>
                 <ChevronRight className="w-3.5 h-3.5" />
               </Button>
             </Link>
 
             <Link href="/alerts" className="flex-1 sm:flex-initial">
-              <Button variant="outline" size="sm" className="gap-1.5 text-xs py-1.5 w-full justify-center">
+              <Button variant="outline" size="sm" className="gap-1.5 text-xs w-full justify-center">
                 <span>ALERTS</span>
                 <ExternalLink className="w-3.5 h-3.5 text-text-muted" />
               </Button>
             </Link>
 
             <Link href="/resources" className="flex-1 sm:flex-initial">
-              <Button variant="outline" size="sm" className="gap-1.5 text-xs py-1.5 w-full justify-center">
+              <Button variant="outline" size="sm" className="gap-1.5 text-xs w-full justify-center">
                 <span>RESOURCES</span>
                 <ExternalLink className="w-3.5 h-3.5 text-text-muted" />
               </Button>
@@ -574,3 +533,4 @@ export default function OverviewPage() {
     </div>
   );
 }
+

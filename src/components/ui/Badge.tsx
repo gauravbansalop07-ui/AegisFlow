@@ -34,14 +34,14 @@ export function Badge({
   };
 
   const sizeStyles = {
-    sm: "px-1.5 py-0.5 text-[10px] tracking-wide",
-    md: "px-2.5 py-1 text-xs tracking-wide",
+    sm: "px-2 py-0.5 text-[11px] font-mono tracking-wide",
+    md: "px-2.5 py-1 text-xs font-mono tracking-wide font-semibold",
   };
 
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 font-medium uppercase rounded border font-mono",
+        "inline-flex items-center gap-1.5 font-medium uppercase rounded-md border",
         variantStyles[variant],
         sizeStyles[size],
         className
@@ -53,3 +53,4 @@ export function Badge({
     </span>
   );
 }
+
