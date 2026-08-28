@@ -13,27 +13,25 @@ logic and simulated operational data. It is designed to demonstrate
 the complete decision-support workflow and is not connected to live
 government emergency systems.
 
+
+
 🚨 The Problem
 
 During a flood, emergency teams have to make several decisions at the
 same time:
 
 Where is the situation getting worse?
-
 Which locations need attention first?
-
 Which communities are most vulnerable?
-
 Where should limited rescue resources be sent?
-
 What happens if an evacuation route becomes flooded?
-
 Why was a particular location or response plan prioritized?
-
 How can decisions and actions be documented for accountability?
 
 AegisFlow brings these decisions into one operational interface instead
 of treating them as separate tasks.
+
+
 
 💡 Our Solution
 
@@ -50,18 +48,16 @@ The key idea is simple:
 Don't just ask where the flood is. Ask where the flood will have the
 greatest human impact --- and what should be done about it.
 
+
+
 ✨ Key Features
 
 🌊 Flood Hazard Simulation
 
 Simulate different combinations of:
-
 Rainfall intensity
-
 River gauge level
-
 Forecast horizon
-
 Flood scenarios
 
 The deterministic simulation updates district hazard conditions,
@@ -77,15 +73,10 @@ The platform helps identify locations where flood conditions intersect
 with factors such as:
 
 Population exposure
-
 Vulnerability
-
 Kutcha housing
-
 Hospitals
-
 Critical infrastructure
-
 Evacuation shelters
 
 🎯 Impact-Based Risk Prioritization
@@ -108,15 +99,10 @@ The platform compares manual/baseline allocation with an optimized
 allocation of limited emergency resources.
 
 The prototype considers factors such as:
-
 Impact score
-
 Resource demand
-
 Travel distance
-
 Shelter capacity
-
 Available inventory
 
 The result is an explainable allocation recommendation rather than an
@@ -126,11 +112,11 @@ opaque decision.
 
 AegisFlow generates evacuation routes toward designated shelters while
 considering road accessibility.
-
 A road can be marked as FLOODED during the simulation.
-
 The routing engine then recalculates the available route and provides an
 explanation for the change.
+
+
 
 Example workflow:
 
@@ -144,15 +130,10 @@ The system recommends a response plan, explains the reasoning, and
 leaves the final decision to the incident commander.
 
 The commander can:
-
 Review the situation
-
 Review recommended resources
-
 Understand the decision rationale
-
 Approve the response
-
 Reject or modify the plan
 
 Approved decisions are recorded in the operational audit trail.
@@ -162,9 +143,7 @@ Approved decisions are recorded in the operational audit trail.
 The alerts module presents simulated bulletins from:
 
 CWC
-
 IMD
-
 ASDMA
 
 Alerts can be filtered by source, severity, status, and location.
@@ -177,22 +156,16 @@ picture.
 AegisFlow can generate an operational report containing:
 
 Executive situation briefing
-
 Hydro-meteorological status
-
 Highest-risk sectors
-
 Exposed population
-
 Resource deployment
-
 Active alerts
-
 Response-plan status
-
 Operational decision information
-
 Reports can be viewed, printed, exported, and snapshotted.
+
+
 
 🎬 Guided 5-Minute Demo
 
@@ -200,25 +173,18 @@ The application includes a guided demonstration that walks through the
 complete operational story:
 
 Unified Operational Picture
-
 Hazard Simulation
-
 Impact Prioritization
-
 Resource Optimization
-
 Access-Aware Routing
-
 Dynamic Re-Routing
-
 Human-in-the-Loop Approval
-
 Situation Report
-
 Official Intelligence
-
 The demo drives the actual application state rather than using fake
 screenshots.
+
+
 
 🧠 How AegisFlow Works
 
@@ -257,6 +223,8 @@ screenshots.
                 │ Reports + Alerts    │
                 │ Accountability      │
                 └─────────────────────┘
+
+
 
 🏗️ Architecture
 
@@ -317,6 +285,8 @@ Leaflet / React-Leaflet   Interactive GIS maps
 Recharts                  Operational charts and visualizations
 Lucide React              Interface icons
 
+
+
 📁 Project Structure
 
 AegisFlow/
@@ -357,6 +327,8 @@ AegisFlow/
 ├── next.config.mjs
 └── tsconfig.json
 
+
+
 🚀 Getting Started
 
 Prerequisites
@@ -389,27 +361,16 @@ npm run build
 For the strongest demonstration:
 
 Open the Overview dashboard.
-
 Click START DEMO.
-
 Follow the guided 9-step operational story.
-
 Watch the flood scenario change.
-
 Show the change in risk priorities.
-
 Run resource optimization.
-
 Demonstrate evacuation routing.
-
 Flood a road and show automatic re-routing.
-
 Review and approve the response plan.
-
 Open the generated operational report.
-
 Finish with the intelligence/alerts feed.
-
 Exit the demo and reset the system.
 
 🔍 Transparency & Limitations
@@ -419,17 +380,11 @@ AegisFlow is a hackathon MVP and decision-support simulation.
 The current prototype uses:
 
 Simulated rainfall
-
 Simulated river-gauge conditions
-
 Simulated flood propagation
-
 Simulated exposure and vulnerability data
-
 Simulated resource inventory
-
 Simulated road conditions
-
 Simulated CWC/IMD/ASDMA alert data
 
 The prototype does not claim to provide live emergency instructions
@@ -440,32 +395,26 @@ validated real-world data sources, forecasting systems, GIS datasets,
 verified infrastructure information, and operational resource
 inventories.
 
+
+
 🔮 Future Scope
 
 Potential future extensions include:
 
 Live IMD and CWC data integration
-
 Satellite-based flood detection
-
 Computer vision for flood and infrastructure damage assessment
-
 ML-assisted flood forecasting
-
 Real-time road accessibility data
-
 Live emergency-resource inventory
-
 More advanced hydrological models
-
 Historical disaster data for model validation
-
 Multi-state / national disaster operations
-
 Secure role-based access and audit infrastructure
-
 The current architecture is intentionally designed so these capabilities
 can be introduced without changing the core operational workflow.
+
+
 
 🎯 Design Philosophy
 
@@ -488,6 +437,8 @@ resources, routing, and reporting.
 Simulation and demo data are clearly identified rather than presented as
 live government data.
 
+
+
 👥 Project
 
 AegisFlow --- Assam Flood Decision Intelligence Platform
@@ -496,6 +447,8 @@ Built as a hackathon prototype focused on improving emergency
 decision-making through connected, explainable and human-controlled
 operational intelligence.
 
+
+
 📌 Status
 
 Hackathon MVP --- Feature Complete
@@ -503,23 +456,13 @@ Hackathon MVP --- Feature Complete
 The current prototype includes:
 
 EOC dashboard
-
 Flood simulation
-
 Exposure mapping
-
 Risk prioritization
-
 Resource optimization
-
 Dynamic evacuation routing
-
 Human-in-the-loop approval
-
 Multi-agency alert feed
-
 Operational reports
-
 Guided 5-minute demo
-
 Responsive desktop/mobile UI
